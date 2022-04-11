@@ -13,7 +13,7 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_loginPage")
      */
-    public function login()
+    public function login():Response
     {
         return $this->render('main/login.html.twig');
     }
@@ -23,7 +23,7 @@ class MainController extends AbstractController
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(Request $request)
+    public function accueil(Request $request):Response
     {
         return $this->render('main/accueil.html.twig');
     }
