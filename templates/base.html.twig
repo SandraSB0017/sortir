@@ -12,10 +12,13 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        {% block title %}
+            <h1>Titre Sortir</h1>
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block title %}
-            test
+        {% block body %}
+        <h1>Test</h1>
+        {% endblock %}
     </body>
 </html>
