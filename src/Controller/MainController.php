@@ -3,18 +3,28 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+
     /**
-     * @Route("/main", name="app_main")
+     * @Route("/", name="app_loginPage")
      */
-    public function index(): Response
+    public function login()
     {
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
+        return $this->render('main/login.html.twig');
+    }
+
+
+
+    /**
+     * @Route("/accueil", name="app_accueil")
+     */
+    public function accueil(Request $request)
+    {
+        return $this->render('main/accueil.html.twig');
     }
 }
