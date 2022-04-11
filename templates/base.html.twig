@@ -2,6 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=yes, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{% block title %}Projet Sortir{% endblock %}</title>
 
         {% block stylesheets %}
@@ -14,7 +17,13 @@
     </head>
     <body>
         <header>
+
+<div class="container-header">
+            <div class="logo">
+                <a href="{{ path('app_accueil') }}"><img src="{{ asset('img/logo.png') }}" alt="logo sortir.com"></a>
+            </div>
             {% include('inc/nav.html.twig') %}
+</div>
         </header>
         <main class="container">
         {% block body %}

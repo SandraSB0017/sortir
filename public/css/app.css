@@ -1,0 +1,22 @@
+.logo img{
+    width: 300px;
+}
+
+.container-header{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+
+
+}
+
+.logo{
+
+}
+
+.navbar{
+    display: flex;
+   justify-items: flex-end;
+}
