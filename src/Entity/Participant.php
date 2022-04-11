@@ -62,6 +62,12 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $photo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="participants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $campus;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -207,6 +213,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }
