@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\RegistrationFormType;
+use App\Repository\ParticipantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,11 +22,19 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/monProfil", name="participant_monProfil")
+     * @Route("/monProfil/{id}", name="participant_monProfil")
      */
-    public function monProfil()
+    public function monProfil(int $id, ParticipantRepository $participantRepository, Request $request): Response
     {
-        return $this->render('participant/monProfil.html.twig');
+        $participant = $participantRepository->find($id);
+
+        $form = $this->createForm(RegistrationFormType::class, $participant);
+        $form->handleRequest($request);
+
+        return $this->render('participant/monProfil.html.twig',[
+            "participant"=>$participant,
+            'editForm' => $form->createView(),
+        ]);
     }
 
 
