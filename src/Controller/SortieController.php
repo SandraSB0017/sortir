@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
+use App\Entity\Sortie;
+use App\Form\SortieType;
+use App\Repository\ParticipantRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,11 +26,36 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/creation", name="sortie_creation")
+     * @Route("/creation/{id}", name="sortie_creation")
      */
-    public function creation()
+    public function creation(
+        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ParticipantRepository $participantRepository
+
+
+    ):Response
     {
-        return $this->render('sortie/creation.html.twig');
+        $sortie =new Sortie();
+        $sortieForm= $this ->createForm(SortieType::class, $sortie);
+        $participant = $participantRepository->find($id);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm ->isSubmitted() && $sortieForm->isValid() ){
+
+            $sortie->setOrganisateur($participant);
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('succes', 'Sortie créée');
+            return $this->redirectToRoute('app_accueil');
+        }
+
+        return $this->render('sortie/creation.html.twig',[
+            'sortie'=>$sortie,
+            'sortieForm'=>$sortieForm->createView()
+        ]);
     }
 
     /**
