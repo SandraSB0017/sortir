@@ -17,4 +17,20 @@ class SortieController extends AbstractController
             'controller_name' => 'SortieController',
         ]);
     }
+
+    /**
+     * @Route("/creation", name="sortie_creation")
+     */
+    public function creation()
+    {
+        return $this->render('sortie/creation.html.twig');
+    }
+
+    /**
+     * @Route("/annulation", name="sortie_annulation")
+     */
+    public function annulation()
+    {
+        return $this->render('sortie/annulation.html.twig');
+    }
 }
