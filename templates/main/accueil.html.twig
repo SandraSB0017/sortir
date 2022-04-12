@@ -7,6 +7,6 @@
 {% block body %}
     <h1>Page d'accueil!</h1>
 
-    <a href="{{ path('sortie_creation',{'id': app.user})}}" class="">Créer une sortie</a>
+    <a href="{{ path('sortie_creation',{'id': app.user.id})}}" class="">Créer une sortie</a>
 
 {% endblock %}
