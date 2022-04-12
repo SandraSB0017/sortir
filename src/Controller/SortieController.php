@@ -33,4 +33,20 @@ class SortieController extends AbstractController
     {
         return $this->render('sortie/annulation.html.twig');
     }
+
+    /**
+     * @Route("/modifier", name="sortie_modifier")
+     */
+    public function modifier()
+    {
+        return $this->render('sortie/modifier.html.twig');
+    }
+
+    /**
+     * @Route("/afficher", name="sortie_afficher")
+     */
+    public function afficher()
+    {
+        return $this->render('sortie/afficher.html.twig');
+    }
 }
