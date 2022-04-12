@@ -10,6 +10,7 @@ use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,9 +23,13 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateHeureDebut', DateType::class)
+            ->add('dateHeureDebut',DateType::class,[
+                'widget'=>'single_text'
+            ])
             ->add('duree', TimeType::class)
-            ->add('dateLimiteInscription', DateType::class)
+            ->add('dateLimiteInscription',DateType::class,[
+                'widget'=>'single_text'
+            ])
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
             ->add('etat', EntityType::class, [
@@ -35,6 +40,9 @@ class SortieType extends AbstractType
                 'choice_label'=>'nom'])
             ->add('campus',EntityType::class, ['class'=>Campus::class,
                 'choice_label'=>'nom'])
+            ->add('saveAndAdd', SubmitType::class,[
+                'label'=>'Enregistrer'
+            ])
 
         ;
     }
