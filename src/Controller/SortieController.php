@@ -38,7 +38,9 @@ class SortieController extends AbstractController
 
     ):Response
     {
-        $sortie =new Sortie();
+        $sortie = new Sortie();
+        //$pseudo=$this->getUser()->getUserIdentifier();
+        //$sortie->setOrganisateur($pseudo);
         $sortieForm= $this ->createForm(SortieType::class, $sortie);
         $participant = $participantRepository->find($id);
         $sortieForm->handleRequest($request);
@@ -49,7 +51,7 @@ class SortieController extends AbstractController
 
             $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash('succes', 'Sortie créée');
+            $this->addFlash('success', 'Sortie créée !');
             return $this->redirectToRoute('app_accueil');
         }
 

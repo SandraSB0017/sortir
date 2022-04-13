@@ -22,7 +22,9 @@
             <div class="logo">
                 <a href="{{ path('app_accueil') }}"><img src="{{ asset('img/MicrosoftTeams-image.png') }}" alt="logo sortir.com"></a>
             </div>
-            {% include('inc/nav.html.twig') %}
+             <div>
+                 {% include('inc/nav.html.twig') %}
+             </div>
 </div>
         </header>
         {% for label, messages in app.flashes %}
