@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
+use App\Form\SearchForm;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +16,18 @@ class MainController extends AbstractController
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(Request $request):Response
+    public function accueil(SortieRepository $sortieRepository, Request $request):Response
     {
-        return $this->render('main/accueil.html.twig');
+        $data = new SearchData();
+        //$data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
+        $sorties = $sortieRepository->findSearch($data);
+        return $this->render('main/accueil.html.twig', [
+            'sorties' => $sorties,
+            'form' => $form->createView()
+        ]);
+       // return $this->render('main/accueil.html.twig');
     }
     /**
      * @Route("/participant/liste_participant", name="liste_participants")
