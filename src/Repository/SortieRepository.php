@@ -7,7 +7,9 @@ use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,12 +48,24 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-
-    public function findSearch():array
+    /**
+     * @param SearchData $search
+     * @return Sortie[]
+     */
+    public function findSearch(SearchData $search): array
     {
-        //$query = $this
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('c', 's')
+            ->join('s.campus', 'c');
 
-    return $this->findAll();
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('s.nom LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        return $query->getQuery()->getResult();
 
     }
 

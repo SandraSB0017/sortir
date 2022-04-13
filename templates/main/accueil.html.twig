@@ -9,8 +9,18 @@
 
     <a href="{{ path('sortie_creation',{'id': app.user.id})}}" class="">Créer une sortie</a>
 
+    <div>
+        {{ form_start(form)}}
+        {{ form_widget(form) }}
+            <button type="submit" name="rechercher">Rechercher</button>
+        {{ form_end(form) }}
+    </div>
 
-    {{ form_start(form)}}
+    <div>
+        {% for sortie in sorties %}
+                {{ sortie.nom }}
+                {{ sortie.id }}
+        {% endfor %}
+    </div>
 
-    {{ form_end(form) }}
 {% endblock %}

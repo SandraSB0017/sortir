@@ -16,12 +16,14 @@ class MainController extends AbstractController
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(SortieRepository $sortieRepository, Request $request):Response
+    public function accueil(SortieRepository $sortieRepository, Request $request): Response
     {
         $data = new SearchData();
-        //$data->page = $request->get('page', 1);
+        $data->page = $request->get('page', 1);
+
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
+
         $sorties = $sortieRepository->findSearch($data);
         return $this->render('main/accueil.html.twig', [
             'sorties' => $sorties,
