@@ -46,11 +46,13 @@ class SearchForm extends AbstractType
             ->add('dateDebut', DateType::class,[
                 'label' => 'Entre ',
                 'required' => false,
+                'widget'=>'single_text'
             ])
 
             ->add('dateFin', DateType::class,[
                 'label' => 'et ',
                 'required' => false,
+                'widget'=>'single_text'
             ])
 
             ->add('organisateur', CheckboxType::class,[
