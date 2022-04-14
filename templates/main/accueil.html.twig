@@ -5,46 +5,49 @@
 {% endblock %}
 
 {% block body %}
-    <div>Date du jour : <br>Participant :
-    </div>
-    <h2>Filtrer les sorties</h2>
+    <div class="main">
+        <div class="info">Date du jour : {{"now"|date('d/m/Y')}}</div>
+        <div class="info">Participant : {{ app.user.prenom }} </div>
 
-    <div>
-        {{ form_start(form)}}
-        {{ form_widget(form) }}
-            <button type="submit" name="rechercher">Rechercher</button>
-        {{ form_end(form) }}
-    </div>
+        <h2>Filtrer les sorties</h2>
 
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nom de la sortie</th>
-                    <th scope="col">Date de la sortie</th>
-                    <th scope="col">Clôture</th>
-                    <th scope="col">Inscrits/places</th>
-                    <th scope="col">Etat</th>
-                    <th scope="col">Inscrit</th>
-                    <th scope="col">Organisateur</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sortie in sorties %}
+        <div>
+            {{ form_start(form)}}
+            {{ form_widget(form) }}
+                <button class="btn btnValidation" type="submit" name="rechercher">Rechercher</button>
+            {{ form_end(form) }}
+        </div>
+
+        <div>
+            <table class="table mt-4">
+                <thead>
                     <tr>
-                        <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
-                        <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
-                        <td><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
-                        <td>{{ sortie.etat.libelle }}</td>
-                        <td>inscrit</td>
-                        <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</td>
-                        <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
+                        <th scope="col">Nom de la sortie</th>
+                        <th scope="col">Date de la sortie</th>
+                        <th scope="col">Clôture</th>
+                        <th scope="col">Inscrits/places</th>
+                        <th scope="col">Etat</th>
+                        <th scope="col">Inscrit</th>
+                        <th scope="col">Organisateur</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for sortie in sorties %}
+                        <tr>
+                            <td>{{ sortie.nom }}</td>
+                            <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
+                            <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
+                            <td><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
+                            <td>{{ sortie.etat.libelle }}</td>
+                            <td>inscrit</td>
+                            <td><a href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
+                            <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btnValidation " ><a href="{{ path('sortie_creation',{'id': app.user.id})}}" class=""></a>Créer une sortie</button>
     </div>
-    <a href="{{ path('sortie_creation',{'id': app.user.id})}}" class="">Créer une sortie</a>
 {% endblock %}
