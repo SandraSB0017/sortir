@@ -40,7 +40,11 @@
                             <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
                             <td><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
                             <td>{{ sortie.etat.libelle }}</td>
-                            <td>inscrit</td>
+                            <td>
+                                {% if sortie.participants.contains(app.user) %}
+                                    X
+                                {% endif %}
+                            </td>
                             <td><a href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
                             <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
                         </tr>
