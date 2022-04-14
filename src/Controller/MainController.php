@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Form\SearchForm;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -54,11 +55,9 @@ class MainController extends AbstractController
         ]);
     }
 
-    public function inscriptionSortie (Participant $participant){
-
-
-
-
-
+    public function inscriptionSortie (Participant $participant, Sortie $sortie)
+    {
+        $sortie->addParticipant($participant);
+        dd($sortie);
     }
 }
