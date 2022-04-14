@@ -8,6 +8,7 @@ use App\Entity\Sortie;
 use App\Form\SearchForm;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,9 +56,61 @@ class MainController extends AbstractController
         ]);
     }
 
-    public function inscriptionSortie (Participant $participant, Sortie $sortie)
+    public function inscriptionSortie (int $id, Participant $participant, Sortie $sortie,EntityManagerInterface $entityManager)
     {
+
         $sortie->addParticipant($participant);
-        dd($sortie);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+
+
+        return $this->redirectToRoute('app_accueil');
+    }
+
+    /**
+     * @Route("/sortie/{id}/participant", name="sortie_participant")
+     */
+    public function ajoutParticipant(
+                                     int $id,
+
+                                     EntityManagerInterface $entityManager,
+                                     ParticipantRepository $participantRepository,
+                                     SortieRepository $sortieRepository
+
+
+    ): Response
+    {
+
+
+
+        $sortie = $sortieRepository->find($id);
+      /*  if($sortie->isSubscribed($participant)) {
+                 $participant = $participantRepository->findOneBy([
+                 'sortie' => $sortie,
+                 'participant' => $participant
+             ]);
+
+             $sortie->removeParticipant($participant);
+             $entityManager->persist($sortie);
+             $entityManager->flush();
+             return $this->json([
+                 'code' => 200,
+                 'message' => 'participant supprimé',
+                 'participant' => $participantRepository->count(['sortie' => $sortie])
+             ], 200);
+
+         } else{*/
+
+        $sortie->addParticipant($this->getUser());
+
+        $entityManager->persist($sortie);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_accueil');
+
+
+        //return $this->json(['code'=>200, 'message'=>'ça marche bien'],200);
     }
 }

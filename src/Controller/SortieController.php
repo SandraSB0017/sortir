@@ -59,7 +59,16 @@ class SortieController extends AbstractController
             'sortie'=>$sortie,
             'sortieForm'=>$sortieForm->createView()
         ]);
+
+
+
+
     }
+
+
+
+
+
 
     /**
      * @Route("/annulation", name="sortie_annulation")

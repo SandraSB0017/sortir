@@ -6,6 +6,7 @@ use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -207,11 +208,11 @@ class Sortie
         return $this->participants;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addParticipant(UserInterface $user): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->addSortie($this);
+        if (!$this->participants->contains($user)) {
+            $this->participants[] = $user;
+            $user->addSortie($this);
         }
 
         return $this;
@@ -237,14 +238,15 @@ class Sortie
 
         return $this;
     }
-    public function isSubscribed(Sortie $sortie, Participant $participant): bool
+
+
+   /* public function isSubscribed(Participant $participant): bool
     {
         foreach($this->participants as $participant){
             if ($participant->getUserIdentifier() === $participant) return true;
-
         }
         return false;
-    }
+    }*/
 
 
 
