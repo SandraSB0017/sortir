@@ -54,10 +54,12 @@ class SortieRepository extends ServiceEntityRepository
      */
     public function findSearch(SearchData $search): array
     {
+
         $query = $this
             ->createQueryBuilder('s')
-            ->select('c', 's')
-            ->join('s.campus', 'c');
+            ->select('c', 's', 'p')
+            ->join('s.campus', 'c')
+            ->join('s.organisateur','p');
 
         if (!empty($search->q)) {
             $query = $query
@@ -85,12 +87,19 @@ class SortieRepository extends ServiceEntityRepository
 
         if (!empty($search->organisateur)) {
             $query = $query
-                ->andWhere('s.organisateur = 1');
+                ->andWhere('s.organisateur = p.id');
+
         }
+
+
+        
+
 
         return $query->getQuery()->getResult();
 
     }
+
+
 
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects

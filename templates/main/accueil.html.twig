@@ -17,10 +17,45 @@
     </div>
 
     <div>
-        {% for sortie in sorties %}
-                {{ sortie.nom }}
-                {{ sortie.id }}
-        {% endfor %}
+
+
+
+            <table class="table">
+                <thead>
+
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date de la sortie</th>
+                    <th scope="col">Cloture</th>
+                    <th scope="col">Inscrits/places</th>
+                    <th scope="col">Etat</th>
+                    <th scope="col">Inscrit</th>
+                    <th scope="col">Organisateur</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for sortie in sorties %}
+                <tr>
+
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.infosSortie }}</td>
+                    <td>datedeFin</td>
+                    <td>{{ sortie.nbInscriptionsMax }}</td>
+                    <td>{{ sortie.etat.libelle }}</td>
+                    <td>inscrit</td>
+                    <td>{{ sortie.organisateur.nom }}</td>
+                    <td><button onclick="inscriptionSortie">s'inscrire</button></td>
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+
+
     </div>
 
 {% endblock %}

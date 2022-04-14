@@ -3,11 +3,11 @@ nav  {
     position: relative;
     right:5%;
 
-    width: 480px;
+    width: 420px;
     height: 50px;
     background-color: #194a7b;
     border-radius: 8px;
-    font-size: 0;
+   
 
 }
 nav a {
@@ -16,9 +16,9 @@ nav a {
     font-size: 15px;
     display: inline-block;
     position: relative;
-    z-index: 1;
-    text-decoration: none !important;
 
+    text-decoration: none !important;
+    padding:0 6px;
     text-align: center;
     color: white;
     cursor: pointer;

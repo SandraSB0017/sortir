@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\SearchData;
+use App\Entity\Participant;
 use App\Form\SearchForm;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -51,5 +52,13 @@ class MainController extends AbstractController
         return $this->render('participant/detail_participant.html.twig',[
             "participant" => $participant
         ]);
+    }
+
+    public function inscriptionSortie (Participant $participant){
+
+
+
+
+
     }
 }
