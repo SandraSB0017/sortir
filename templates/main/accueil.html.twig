@@ -36,11 +36,11 @@
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
                         <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
-                        <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                        <td><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
                         <td>inscrit</td>
                         <td>{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</td>
-                        <td><button onclick="inscriptionSortie()">s'inscrire</button></td>
+                        <td><a href="#" class="btn btn-outline-primary">S'inscrire</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

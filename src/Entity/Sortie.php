@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
  */
@@ -235,6 +236,14 @@ class Sortie
         $this->organisateur = $organisateur;
 
         return $this;
+    }
+    public function isSubscribed(Sortie $sortie, Participant $participant): bool
+    {
+        foreach($this->participants as $participant){
+            if ($participant->getUserIdentifier() === $participant) return true;
+
+        }
+        return false;
     }
 
 
