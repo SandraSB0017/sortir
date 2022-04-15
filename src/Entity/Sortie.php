@@ -218,10 +218,10 @@ class Sortie
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeParticipant(UserInterface $user): self
     {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeSortie($this);
+        if ($this->participants->removeElement($user)) {
+            $user->removeSortie($this);
         }
 
         return $this;

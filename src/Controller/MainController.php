@@ -115,4 +115,27 @@ class MainController extends AbstractController
 
         //return $this->json(['code'=>200, 'message'=>'ça marche bien'],200);
     }
+
+    /**
+     * @Route("/sortie/{id}/participant-desinscription", name="sortie_participant_desinscription")
+     */
+    public function removeDuParticipant(
+        int $id,
+
+        EntityManagerInterface $entityManager,
+        ParticipantRepository $participantRepository,
+        SortieRepository $sortieRepository
+
+
+    ): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $sortie->removeParticipant($this->getUser());
+
+        $entityManager->persist($sortie);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_accueil');
+    }
 }
