@@ -115,4 +115,18 @@ class MainController extends AbstractController
 
         //return $this->json(['code'=>200, 'message'=>'ça marche bien'],200);
     }
+
+    /**
+     * @Route("/sortie/afficher", name="sortie_afficher")
+     */
+    public function afficherSortie(int $id,
+                                   Sortie $sortie,
+                                   SortieRepository $sortieRepository
+    ): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        return $this->render('sortie/afficher.html.twig',[
+            "sortie" => $sortie
+        ]);
+    }
 }
