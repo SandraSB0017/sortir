@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Data\SearchData;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -10,6 +11,7 @@ use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -50,9 +52,10 @@ class SortieRepository extends ServiceEntityRepository
 
     /**
      * @param SearchData $search
-     * @return Sortie[]
+     * @param UserInterface $currentParticipant
+     * @return array
      */
-    public function findSearch(SearchData $search): array
+    public function findSearch(SearchData $search, UserInterface $currentParticipant): array
     {
 
         $query = $this
@@ -87,7 +90,8 @@ class SortieRepository extends ServiceEntityRepository
 
         if (!empty($search->organisateur)) {
             $query = $query
-                ->andWhere('s.organisateur = p.id');
+                ->andWhere('s.organisateur = :currentParticipant')
+                ->setParameter('currentParticipant', $currentParticipant);
 
         }
 
