@@ -35,7 +35,7 @@
         <tr>
 
             <th>Durée</th>
-            <td> {#{{ sortie.duree }} #}xxxx minutes</td>
+            <td> {{ sortie.duree.format('h')*60 + sortie.duree.format('i') }} minutes</td>
         </tr>
         <tr>
 
@@ -97,7 +97,7 @@
                 {% for participant in sortie.participants %}
                 <tr>
                     <td>{{ participant.pseudo }}</td>
-                    <td>{{ participant.nom }}</td>
+                    <td>{{ participant.nom }} {{ participant.prenom }}</td>
                 </tr>
                 {% endfor %}
                 </thead>

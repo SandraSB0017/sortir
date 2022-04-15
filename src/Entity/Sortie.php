@@ -240,13 +240,13 @@ class Sortie
     }
 
 
-   /* public function isSubscribed(Participant $participant): bool
+    public function isSubscribed(UserInterface $user): bool
     {
         foreach($this->participants as $participant){
-            if ($participant->getUserIdentifier() === $participant) return true;
+            if ($participant->get === $participant) return true;
         }
         return false;
-    }*/
+    }
 
 
 
