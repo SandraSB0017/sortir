@@ -92,12 +92,12 @@ class SortieRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('s.organisateur = :currentParticipant')
                 ->setParameter('currentParticipant', $currentParticipant);
-
         }
 
-
-        
-
+        if (!empty($search->sortiePassees)) {
+            $query = $query
+                ->andWhere('s.etat = 5');
+        }
 
         return $query->getQuery()->getResult();
 
