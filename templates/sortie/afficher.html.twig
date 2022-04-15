@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td>Date et heure de la sortie: <td>
-                <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }} }}<td>
+                <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }}<td>
                 <td>Lieu: <td>
                 <td>{{ sortie.lieu.nom }}<td>
             </tr>
@@ -28,11 +28,11 @@
                 <td>Nombre de places: <td>
                 <td>{{ sortie.nbInscriptionsMax }}<td>
                 <td>Code postal: <td>
-                <td>{{ sortie.lieu.ville }}<td>
+                <td>{{ sortie.lieu.ville.nom }}<td>
             </tr>
             <tr>
                 <td>Durée: <td>
-                <td>{{ sortie.duree }} minutes<td>
+                <td>{{ sortie.duree.format('h')*60 + sortie.duree.format('i') }} minutes<td>
                 <td>Latitude: <td>
                 <td><td>
             </tr>
@@ -55,8 +55,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ sortie.participants.nom }}</td>
-                    <td>{{ sortie.participants.prenom }}</td>
+                    {% for participant in sortie.participants %}
+                    <td>{{ participant.nom }}</td>
+                    <td>{{ participant.prenom }}</td>
+                    {% endfor %}
                 </tr>
             </tbody>
         </table>
