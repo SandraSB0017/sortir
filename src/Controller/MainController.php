@@ -76,45 +76,26 @@ class MainController extends AbstractController
      */
     public function ajoutParticipant(
                                      int $id,
-
                                      EntityManagerInterface $entityManager,
                                      ParticipantRepository $participantRepository,
                                      SortieRepository $sortieRepository
-
-
     ): Response
     {
-
-
-
         $sortie = $sortieRepository->find($id);
-      /*  if($sortie->isSubscribed($participant)) {
-                 $participant = $participantRepository->findOneBy([
-                 'sortie' => $sortie,
-                 'participant' => $participant
-             ]);
+        $time = date('d/m/y');
 
-             $sortie->removeParticipant($participant);
-             $entityManager->persist($sortie);
-             $entityManager->flush();
-             return $this->json([
-                 'code' => 200,
-                 'message' => 'participant supprimé',
-                 'participant' => $participantRepository->count(['sortie' => $sortie])
-             ], 200);
+        if($sortie->getDateLimiteInscription()->format('d/m/y') > $time){
 
-         } else{*/
-
-        $sortie->addParticipant($this->getUser());
-
-        $entityManager->persist($sortie);
-
-        $entityManager->flush();
+            $sortie->addParticipant($this->getUser());
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('success', 'Inscription réussie !');
+        }
+        else{
+            $this->addFlash('echec', 'Vous ne pouvez plus vous inscrire à cette sortie!');
+        }
 
         return $this->redirectToRoute('app_accueil');
-
-
-        //return $this->json(['code'=>200, 'message'=>'ça marche bien'],200);
     }
 
     /**

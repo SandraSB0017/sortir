@@ -60,6 +60,10 @@ nav a:hover{
 .flash-success {
     background-color: #5393c9;
 }
+
+.flash-echec {
+    background-color: #c95361;
+}
 body{
     margin-bottom: 20px;
 

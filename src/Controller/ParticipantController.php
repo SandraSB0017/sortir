@@ -31,23 +31,16 @@ class ParticipantController extends AbstractController
                               EntityManagerInterface $entityManager
     ): Response
     {
-        $participant = $participantRepository->find($id);
 
+        $participant = $participantRepository->find($id);
         $form = $this->createForm(RegistrationFormType::class, $participant);
         $form->handleRequest($request);
 
-
-
-
-
             if( $form->get('saveAndAdd')->isClicked() && $form->isValid())
-
             {
                $entityManager->persist($participant);
                $entityManager->flush();
-
                $this->addFlash('succes', 'Profil modifié');
-
                return $this->redirectToRoute('app_accueil');
 
             }/*else if($form->get('annuler')->isClicked())

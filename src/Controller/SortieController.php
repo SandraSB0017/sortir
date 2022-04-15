@@ -110,30 +110,5 @@ class SortieController extends AbstractController
         ]);
     }
 
- /*   /**
-     * @Route ("/sortie/nouveau_lieu", name="sortie_nouveau_lieu")
-     */
 
- /*   public function addLieu(
-        LieuRepository $lieuRepository,
-        Request $request,
-        EntityManagerInterface $entityManager
-
-    ): Response
-    {
-        $lieu = new Lieu();
-        $lieuForm = $this->createForm(LieuType::class, $lieu);
-
-        $lieuForm->handleRequest($request);
-
-        if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
-            $entityManager->persist($lieu);
-            $entityManager->flush();
-            return $this->redirectToRoute('sortie_creation');
-        }
-
-        return $this->render('sortie/test-lieu.html.twig', [
-            'lieuForm' => $lieuForm->createView()
-        ]);
-    }*/
     }
