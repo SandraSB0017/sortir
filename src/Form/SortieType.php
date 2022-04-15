@@ -40,9 +40,9 @@ class SortieType extends AbstractType
                 'choice_label'=>'nom'])
             ->add('campus',EntityType::class, ['class'=>Campus::class,
                 'choice_label'=>'nom'])
-            ->add('saveAndAdd', SubmitType::class,[
+            /*->add('saveAndAdd', SubmitType::class,[
                 'label'=>'Enregistrer'
-            ])
+            ])*/
 
         ;
     }

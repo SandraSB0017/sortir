@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Form\LieuType;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,23 +38,30 @@ class SortieController extends AbstractController
         int $id,
         Request $request,
         EntityManagerInterface $entityManager,
-        ParticipantRepository $participantRepository
+        ParticipantRepository $participantRepository,
+        LieuRepository $lieuRepository
 
 
     ):Response
     {
         $sortie = new Sortie();
+        $lieu = new Lieu();
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
+
+
         //$pseudo=$this->getUser()->getUserIdentifier();
         //$sortie->setOrganisateur($pseudo);
         $sortieForm= $this ->createForm(SortieType::class, $sortie);
         $participant = $participantRepository->find($id);
         $sortieForm->handleRequest($request);
+        $lieuForm->handleRequest($request);
 
-        if($sortieForm ->isSubmitted() && $sortieForm->isValid() ){
+        if($sortieForm ->isSubmitted() && $sortieForm->isValid() && $lieuForm->isSubmitted() && $lieuForm->isValid() ){
 
             $sortie->setOrganisateur($participant);
 
             $entityManager->persist($sortie);
+            $entityManager->persist(($lieu));
             $entityManager->flush();
             $this->addFlash('success', 'Sortie créée !');
             return $this->redirectToRoute('app_accueil');
@@ -59,6 +69,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/creation.html.twig',[
             'sortie'=>$sortie,
+            'lieuform'=>$lieuForm->createView(),
             'sortieForm'=>$sortieForm->createView()
         ]);
 
@@ -99,14 +110,30 @@ class SortieController extends AbstractController
         ]);
     }
 
-    /**
+ /*   /**
      * @Route ("/sortie/nouveau_lieu", name="sortie_nouveau_lieu")
      */
 
-    public function addLieu(LieuRepository $lieuRepository,
-                            Request $request
+ /*   public function addLieu(
+        LieuRepository $lieuRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+
     ): Response
     {
-        return $this->render('sortie/creation.html.twig');
+        $lieu = new Lieu();
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
+
+        $lieuForm->handleRequest($request);
+
+        if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+            return $this->redirectToRoute('sortie_creation');
+        }
+
+        return $this->render('sortie/test-lieu.html.twig', [
+            'lieuForm' => $lieuForm->createView()
+        ]);
+    }*/
     }
-}

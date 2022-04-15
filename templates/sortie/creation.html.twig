@@ -6,8 +6,30 @@
     <h1>Créer une sortie</h1>
 
     {{ form_start(sortieForm) }}
-    {{ form_widget(sortieForm) }}
-    <a href="{{ path('sortie_nouveau_lieu') }}">Ajouter lieu</a>
+    {{ form_row(sortieForm.nom) }}
+    {{ form_row(sortieForm.dateHeureDebut) }}
+    {{ form_row(sortieForm.duree) }}
+    {{ form_row(sortieForm.dateLimiteInscription) }}
+    {{ form_row(sortieForm.nbInscriptionsMax) }}
+    {{ form_row(sortieForm.infosSortie) }}
+    {{ form_row(sortieForm.etat) }}
+    {{ form_row(sortieForm.lieu) }}
+    <button class="btn btn-dark lieubtn" onclick="">ajouter un lieu</button>
+
+<div class="lieu">
+
+            {{ form_start(lieuform) }}
+            {{ form_widget(lieuform) }}
+
+</div>
+    {{ form_row(sortieForm.campus) }}
+
+
+   <button class="btn btnValidation" type="submit">Enregistrer</button>
+
+             {{ form_end(lieuform) }}
     {{ form_end(sortieForm) }}
-    <button class="btn btn-danger" type="button" name="annuler" onclick="history.go(0)">Annuler</button>
+
+
+
 {% endblock %}
