@@ -46,7 +46,14 @@
                                 {% endif %}
                             </td>
                             <td><a href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
+
+
+                            {% if sortie.participants.contains(app.user) %}
+                            <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">Se désinscrire</a></td>
+
+                            {% else %}
                             <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>
