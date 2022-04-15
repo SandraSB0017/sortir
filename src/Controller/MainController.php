@@ -117,16 +117,25 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/afficher", name="sortie_afficher")
+     * @Route("/sortie/{id}/participant-desinscription", name="sortie_participant_desinscription")
      */
-    public function afficherSortie(int $id,
-                                   Sortie $sortie,
-                                   SortieRepository $sortieRepository
+    public function removeDuParticipant(
+        int $id,
+
+        EntityManagerInterface $entityManager,
+        ParticipantRepository $participantRepository,
+        SortieRepository $sortieRepository
+
+
     ): Response
     {
         $sortie = $sortieRepository->find($id);
-        return $this->render('sortie/afficher.html.twig',[
-            "sortie" => $sortie
-        ]);
+        $sortie->removeParticipant($this->getUser());
+
+        $entityManager->persist($sortie);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_accueil');
     }
 }
