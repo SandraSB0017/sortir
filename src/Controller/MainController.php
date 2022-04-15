@@ -6,6 +6,7 @@ use App\Data\SearchData;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SearchForm;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;

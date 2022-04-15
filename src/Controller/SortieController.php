@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,10 +68,6 @@ class SortieController extends AbstractController
     }
 
 
-
-
-
-
     /**
      * @Route("/annulation", name="sortie_annulation")
      */
@@ -100,5 +97,16 @@ class SortieController extends AbstractController
         return $this->render('sortie/afficher.html.twig',[
             "sortie" => $sortie
         ]);
+    }
+
+    /**
+     * @Route ("/sortie/nouveau_lieu", name="sortie_nouveau_lieu")
+     */
+
+    public function addLieu(LieuRepository $lieuRepository,
+                            Request $request
+    ): Response
+    {
+        return $this->render('sortie/creation.html.twig');
     }
 }
