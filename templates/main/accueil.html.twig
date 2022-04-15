@@ -54,6 +54,7 @@
                             {% else %}
                             <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
                             {% endif %}
+                            <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

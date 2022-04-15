@@ -6,6 +6,7 @@ use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,11 +87,18 @@ class SortieController extends AbstractController
         return $this->render('sortie/modifier.html.twig');
     }
 
+
     /**
-     * @Route("/afficher", name="sortie_afficher")
+     * @Route("/sortie/{id}/afficher", name="sortie_afficher")
      */
-    public function afficher()
+
+    public function afficherSortie(int $id,
+                                   SortieRepository $sortieRepository
+    ): Response
     {
-        return $this->render('sortie/afficher.html.twig');
+        $sortie = $sortieRepository->find($id);
+        return $this->render('sortie/afficher.html.twig',[
+            "sortie" => $sortie
+        ]);
     }
 }

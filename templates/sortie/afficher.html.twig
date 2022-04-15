@@ -3,11 +3,9 @@
 {% block title %}Afficher une sortie{% endblock %}
 
 {% block body %}
-
     <h1>Afficher une sortie</h1>
     <div>
         <table>
-            {% for sortie in sorties %}
             <tr>
                 <td>Nom de la sortie: <td>
                 <td>{{ sortie.nom }}<td>
@@ -18,23 +16,23 @@
                 <td>Date et heure de la sortie: <td>
                 <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }} }}<td>
                 <td>Lieu: <td>
-                <td>{{ sortie.lieu }}<td>
+                <td>{{ sortie.lieu.nom }}<td>
             </tr>
             <tr>
                 <td>Date limite d'inscription: <td>
                 <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}<td>
                 <td>Rue: <td>
-                <td>{{ sortie.rue }}<td>
+                <td>{{ sortie.lieu.rue}}<td>
             </tr>
             <tr>
                 <td>Nombre de places: <td>
                 <td>{{ sortie.nbInscriptionsMax }}<td>
                 <td>Code postal: <td>
-                <td>{{ sortie.lieu }}<td>
+                <td>{{ sortie.lieu.ville }}<td>
             </tr>
             <tr>
-                <td>Durée: minutes<td>
-                <td>{{ sortie.duree }}<td>
+                <td>Durée: <td>
+                <td>{{ sortie.duree }} minutes<td>
                 <td>Latitude: <td>
                 <td><td>
             </tr>
@@ -44,8 +42,22 @@
                 <td>Longitude: <td>
                 <td><td>
             </tr>
-    {% endfor %}
-
+            </tbody>
+        </table>
+    <h2>Liste des<div>
+        <div>
+        <table class="table mt-4">
+            <thead>
+            <tr>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Nom</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ sortie.participants.nom }}</td>
+                    <td>{{ sortie.participants.prenom }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
