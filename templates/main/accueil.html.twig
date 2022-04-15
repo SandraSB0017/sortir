@@ -49,7 +49,7 @@
 
 
                             {% if sortie.participants.contains(app.user) %}
-                            <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">Se désinscrire</a></td>
+                            <td><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary">Se désister</a></td>
 
                             {% else %}
                             <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
