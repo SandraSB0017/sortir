@@ -28,8 +28,9 @@ class LieuType extends AbstractType
                 'required'=>false
             ])
             ->add('ville', EntityType::class,[
-                'class'=>'App\Entity\Ville',
-                'label'=>'ville',
+                'class'=> Ville::class,
+                 'label'=>'ville',
+                'choice_label'=>'nom',
                 'required'=> false
             ])
         ;
