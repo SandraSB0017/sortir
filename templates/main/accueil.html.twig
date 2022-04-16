@@ -19,42 +19,42 @@
         </div>
 
         <div>
-            <table class="table mt-4">
+            <table class="table table-striped mt-4">
                 <thead>
                     <tr>
-                        <th scope="col">Nom de la sortie</th>
-                        <th scope="col">Date de la sortie</th>
-                        <th scope="col">Clôture</th>
-                        <th scope="col">Inscrits/places</th>
-                        <th scope="col">Etat</th>
-                        <th scope="col">Inscrit</th>
-                        <th scope="col">Organisateur</th>
-                        <th scope="col">Actions</th>
+                        <th class="intitule" scope="col">Nom de la sortie</th>
+                        <th class="intitule" scope="col">Date de la sortie</th>
+                        <th class="intitule" scope="col">Clôture</th>
+                        <th class="intitule" scope="col">Inscrits/places</th>
+                        <th class="intitule" scope="col">Etat</th>
+                        <th class="intitule" scope="col">Inscrit</th>
+                        <th class="intitule" scope="col">Organisateur</th>
+                        <th class="intitule" scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for sortie in sorties %}
                         <tr>
-                            <td>{{ sortie.nom }}</td>
-                            <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
-                            <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
-                            <td><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
-                            <td>{{ sortie.etat.libelle }}</td>
-                            <td>
+                            <td class="intitule1">{{ sortie.nom }}</td>
+                            <td class="intitule">{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
+                            <td class="intitule">{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
+                            <td class="intitule"><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
+                            <td class="intitule">{{ sortie.etat.libelle }}</td>
+                            <td class="intitule">
                                 {% if sortie.participants.contains(app.user) %}
                                     X
                                 {% endif %}
                             </td>
-                            <td><a href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
+                            <td class="tdHover"><a class="pseudoDetail" href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
 
 
                             {% if sortie.participants.contains(app.user) %}
-                            <td><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary">Se désister</a></td>
+                            <td class="intitule"><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a> <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
 
                             {% else %}
-                            <td><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary">S'inscrire</a></td>
+                            <td class="intitule"><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary ">S'inscrire</a> <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                             {% endif %}
-                            <td><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+
                         </tr>
                     {% endfor %}
                 </tbody>

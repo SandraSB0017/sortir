@@ -8,9 +8,8 @@ use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use mysql_xdevapi\Result;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -101,6 +100,19 @@ class SortieRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
 
+    }
+
+    public function masquerSortie()
+    {
+        $entityManager = $this->getEntityManager();
+        $dql = "SELECT s
+               FROM App\Entity\Sortie as s
+               WHERE s.dateHeureDebut +30 > NOW()        
+               ";
+    $query = $entityManager->createQuery($dql);
+    $Results = $query->getResult();
+
+    return null;
     }
 
 

@@ -101,14 +101,18 @@ class SortieController extends AbstractController
      */
 
     public function afficherSortie(int $id,
+                                   EntityManagerInterface $entityManager,
                                    SortieRepository $sortieRepository
     ): Response
     {
         $sortie = $sortieRepository->find($id);
+        $time = date('d/m/y');
+
+          $entityManager->flush();
+
         return $this->render('sortie/afficher.html.twig',[
             "sortie" => $sortie
         ]);
     }
-
 
     }

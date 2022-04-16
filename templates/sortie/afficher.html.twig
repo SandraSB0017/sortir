@@ -11,75 +11,61 @@
 
         <thead>
         <tr>
-
-            <th scope="col">Nom de la sortie</th>
-            <td scope="col">{{ sortie.nom }}</td>
+            <td>Nom de la sortie</td>
+            <td class="intitule">{{ sortie.nom }}</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-
             <th>Date et heure de la sortie</th>
-            <td>{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
+            <td class="intitule" >{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
         </tr>
         <tr>
-
             <th>Date limite d'inscription</th>
-            <td>{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
+            <td class="intitule">{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
         </tr>
         <tr>
-
             <th>Nombre de places</th>
-            <td>{{ sortie.nbInscriptionsMax }}</td>
+            <td class="intitule">{{ sortie.nbInscriptionsMax }}</td>
         </tr>
         <tr>
-
             <th>Durée</th>
-            <td> {{ sortie.duree.format('h')*60 + sortie.duree.format('i') }} minutes</td>
+            <td class="intitule"> {{ sortie.duree.format('h')*60 + sortie.duree.format('i') }} minutes</td>
         </tr>
-        <tr>
-
-            <th>Description et infos</th>
-            <td>{{ sortie.infosSortie }}</td>
+        <tr>            <th>Description et infos</th>
+            <td class="intitule">{{ sortie.infosSortie }}</td>
         </tr>
         </tbody>
     </table>
 </div>
-
     <div class="tableaux">
         <table class="table table-striped table-bordered ">
             <thead>
             <tr>
-
-                <th scope="col">Campus</th>
-                <td>{{ sortie.campus }}</td>
+                <td scope="col">Campus</td>
+                <td class="intitule">{{ sortie.campus }}</td>
             </tr>
             </thead>
             <tbody>
             <tr>
-
                 <th>Lieu</th>
-                <td>{{ sortie.lieu.nom }}</td>
+                <td class="intitule">{{ sortie.lieu.nom }}</td>
             </tr>
             <tr>
-
                 <th>Rue</th>
-                <td>{{ sortie.lieu.rue}}</td>
+                <td class="intitule">{{ sortie.lieu.rue}}</td>
             </tr>
             <tr>
-
                 <th>Code postal</th>
-                <td>{{ sortie.lieu.ville.codePostal }}</td>
+                <td class="intitule">{{ sortie.lieu.ville.codePostal }}</td>
             </tr>
             <tr>
-
                 <th>Latitude</th>
-                <td>non renseigné</td>
+                <td class="intitule">non renseigné</td>
             </tr>
             <tr>
-
                 <th>Longitude</th>
-                <td>non renseigné</td>
+                <td class="intitule">non renseigné</td>
             </tr>
             </tbody>
         </table>
@@ -88,20 +74,26 @@
     <div class="participantsInscrits">
     <h2>Liste des participants inscrits</h2>
 
-            <table class="table table-striped table-hover">
+            <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Pseudo</th>
-                    <th scope="col">Nom</th>
+                    <td class="intitule" scope="col">Pseudo</td>
+                    <td class="intitule" scope="col">Nom</td>
                 </tr>
+                </thead>
+                <tbody>
+
                 {% for participant in sortie.participants %}
                 <tr>
-                    <td><a href="{{ path('detail_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a> </td>
-                    <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                    <td class="tdHover"><a class="pseudoDetail" href="{{ path('detail_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a> </td>
+                    <td class="intitule">{{ participant.nom }} {{ participant.prenom }}</td>
                 </tr>
                 {% endfor %}
-                </thead>
+                </tbody>
             </table>
+            {% if sortie.participants.empty %}
+                <div class="intitule">Aucun participant n'est inscrit à cette sortie pour le moment</div>
+            {% endif %}
     </div>
 
 {% endblock %}
