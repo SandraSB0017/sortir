@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau lieu{% endblock %}
+
+{% block body %}
+
+    <h1>Créer un nouveau lieu</h1>
+
+    {{ form_start(lieuForm) }}
+    {{ form_widget(lieuForm) }}
+    <button class="btn btnValidation" type="submit">Enregistrer</button>
+    {{ form_end(lieuForm) }}
+{#    <a class="btn btn-danger"onclick="history.go(-1)">Retour</a>#}
+    <a href="{{ path('sortie_creation', {'id': app.user.id}) }}" class="btn btn-danger">Retour</a>
+{% endblock %}

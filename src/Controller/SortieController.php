@@ -38,30 +38,23 @@ class SortieController extends AbstractController
         int $id,
         Request $request,
         EntityManagerInterface $entityManager,
-        ParticipantRepository $participantRepository,
-        LieuRepository $lieuRepository
+        ParticipantRepository $participantRepository
 
 
     ):Response
     {
         $sortie = new Sortie();
-        $lieu = new Lieu();
-        $lieuForm = $this->createForm(LieuType::class, $lieu);
 
 
-        //$pseudo=$this->getUser()->getUserIdentifier();
-        //$sortie->setOrganisateur($pseudo);
         $sortieForm= $this ->createForm(SortieType::class, $sortie);
         $participant = $participantRepository->find($id);
         $sortieForm->handleRequest($request);
-        $lieuForm->handleRequest($request);
 
-        if($sortieForm ->isSubmitted() && $sortieForm->isValid() || $lieuForm->isSubmitted()){ //&& $lieuForm->isValid() ){
+        if($sortieForm ->isSubmitted() && $sortieForm->isValid()) {
 
             $sortie->setOrganisateur($participant);
 
             $entityManager->persist($sortie);
-            $entityManager->persist(($lieu));
             $entityManager->flush();
             $this->addFlash('success', 'Sortie créée !');
             return $this->redirectToRoute('app_accueil');
@@ -69,12 +62,34 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/creation.html.twig',[
             'sortie'=>$sortie,
-            'lieuform'=>$lieuForm->createView(),
             'sortieForm'=>$sortieForm->createView()
         ]);
 
+    }
+
+    /**
+     * @Route("/addLieu", name="sortie_add_Lieu")
+     */
+
+    public function addLieu(EntityManagerInterface $entityManager,
+                            Request $request ){
 
 
+        $lieu = new Lieu();
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
+        $lieuForm->handleRequest($request);
+        if($lieuForm->isSubmitted() && $lieuForm->isValid() ){
+
+            $entityManager->persist(($lieu));
+            $entityManager->flush();
+            $this->addFlash('success', 'Nouveau lieu ajouté !');
+            return $this->redirectToRoute('sortie_add_Lieu');
+
+        }
+        return $this->render('sortie/LieuCreation.html.twig',[
+            'lieu' => $lieu,
+            'lieuForm'=>$lieuForm->createView()
+        ]);
 
     }
 

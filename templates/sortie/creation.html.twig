@@ -13,21 +13,14 @@
     {{ form_row(sortieForm.nbInscriptionsMax) }}
     {{ form_row(sortieForm.infosSortie) }}
     {{ form_row(sortieForm.etat) }}
+    <div class="btnNewLieu">
     {{ form_row(sortieForm.lieu) }}
-    <button class="btn btn-dark lieubtn" onclick="">+</button>
-
-<div class="lieu">
-
-            {{ form_start(lieuform) }}
-            {{ form_widget(lieuform) }}
-
-</div>
+    <a type="button" href ="{{ path('sortie_add_Lieu')}}" class="btn btn-dark">+</a>
+    </div>
     {{ form_row(sortieForm.campus) }}
 
 
    <button class="btn btnValidation" type="submit">Enregistrer</button>
-
-             {{ form_end(lieuform) }}
     {{ form_end(sortieForm) }}
 
 

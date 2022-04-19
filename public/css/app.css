@@ -121,4 +121,11 @@ thead{
     font-weight: bold;
 }
 
-
+.btnNewLieu{
+   display: inline-flex;
+}
+.btn-dark{
+    height: 40px;
+    width: 40px;
+    margin-left: 5px;
+}
