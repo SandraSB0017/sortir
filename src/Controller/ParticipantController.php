@@ -23,7 +23,7 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/monProfil/{id}", name="participant_monProfil")
+     * @Route("/monProfil/{id}", name="participant_monProfil", requirements={"id"="\d+"})
      */
     public function monProfil(int $id,
                               ParticipantRepository $participantRepository,
@@ -43,17 +43,7 @@ class ParticipantController extends AbstractController
                $this->addFlash('succes', 'Profil modifié');
                return $this->redirectToRoute('app_accueil');
 
-            }/*else if($form->get('annuler')->isClicked())
-
-            {
-                return $this->redirectToRoute('participant_monProfil',
-                    ['id'=>$participant->getId()]
-
-                );
-            }*/
-
-
-
+            }
         return $this->render('participant/monProfil.html.twig',[
             'participant'=>$participant,
             'editForm' => $form->createView(),

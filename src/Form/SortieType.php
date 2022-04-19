@@ -32,18 +32,9 @@ class SortieType extends AbstractType
             ])
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
-            ->add('etat', EntityType::class, [
-                'class'=>Etat::class,
-                'choice_label'=>'libelle'])
 
             ->add('lieu', EntityType::class,['class'=>Lieu::class,
                 'choice_label'=>'nom'])
-            ->add('campus',EntityType::class, ['class'=>Campus::class,
-                'choice_label'=>'nom'])
-            /*->add('saveAndAdd', SubmitType::class,[
-                'label'=>'Enregistrer'
-            ])*/
-
         ;
     }
 

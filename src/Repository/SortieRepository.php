@@ -62,7 +62,8 @@ class SortieRepository extends ServiceEntityRepository
             ->select('c', 's', 'p','e')
             ->join('s.campus', 'c')
             ->join('s.organisateur','p')
-            ->join('s.etat', 'e');
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle != \'créée\'');
 
         if (!empty($search->q)) {
             $query = $query

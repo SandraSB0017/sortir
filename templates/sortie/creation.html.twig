@@ -12,15 +12,15 @@
     {{ form_row(sortieForm.dateLimiteInscription) }}
     {{ form_row(sortieForm.nbInscriptionsMax) }}
     {{ form_row(sortieForm.infosSortie) }}
-    {{ form_row(sortieForm.etat) }}
     <div class="btnNewLieu">
     {{ form_row(sortieForm.lieu) }}
     <a type="button" href ="{{ path('sortie_add_Lieu')}}" class="btn btn-dark">+</a>
     </div>
-    {{ form_row(sortieForm.campus) }}
 
+    <button class="btn btnValidation" type="submit" name="creer" value="creer">Enregistrer</button>
+    <button class="btn btnValidation" type="submit" name="publier" value="publier">Publier la sortie</button>
+    <a href="{{ path('app_accueil') }}" class="btn btnValidation" type="reset">Annuler</a>
 
-   <button class="btn btnValidation" type="submit">Enregistrer</button>
     {{ form_end(sortieForm) }}
 
 

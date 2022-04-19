@@ -23,21 +23,26 @@ class Sortie
     private $id;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Length(min=2, max=50, minMessage="Nom trop court", maxMessage="Nom trop long")
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="datetime")
      */
     private $dateHeureDebut;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="time")
      */
     private $duree;
 
     /**
+     * @Assert\NotBlank
      * @Assert\LessThan(propertyPath="dateHeureDebut", message="La date d'inscription doit être antérieure à la date de sortie")
      * @ORM\Column(type="date")
      */
@@ -49,6 +54,7 @@ class Sortie
     private $nbInscriptionsMax;
 
     /**
+     * @Assert\Length(max=255, maxMessage="Description trop longue")
      * @ORM\Column(type="text")
      */
     private $infosSortie;
@@ -60,6 +66,7 @@ class Sortie
     private $etat;
 
     /**
+     * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sortie")
      * @ORM\JoinColumn(nullable=false)
      */

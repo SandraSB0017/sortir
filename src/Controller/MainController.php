@@ -49,7 +49,7 @@ class MainController extends AbstractController
         ]);
     }
     /**
-     * @Route("/detail_participant/{id}", name="detail_participant")
+     * @Route("/detail_participant/{id}", name="detail_participant", requirements={"id"="\d+"})
      */
     public function detail(int $id, ParticipantRepository $participantRepository): Response
     {
@@ -59,20 +59,9 @@ class MainController extends AbstractController
         ]);
     }
 
-    public function inscriptionSortie (int $id, Participant $participant, Sortie $sortie,EntityManagerInterface $entityManager)
-    {
-
-        $sortie->addParticipant($participant);
-        $entityManager->persist($sortie);
-        $entityManager->flush();
-
-
-
-        return $this->redirectToRoute('app_accueil');
-    }
 
     /**
-     * @Route("/sortie/{id}/participant", name="sortie_participant")
+     * @Route("/sortie/{id}/participant", name="sortie_participant", requirements={"id"="\d+"})
      */
     public function ajoutParticipant(
                                      int $id,
@@ -99,7 +88,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/{id}/participant-desinscription", name="sortie_participant_desinscription")
+     * @Route("/sortie/{id}/participant-desinscription", name="sortie_participant_desinscription", requirements={"id"="\d+"})
      */
     public function removeDuParticipant(
         int $id,

@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\LieuType;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -33,18 +35,20 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/creation/{id}", name="sortie_creation")
+     * @Route("/creation/{id}", name="sortie_creation", requirements={"id"="\d+"})
      */
     public function creation(
         int $id,
         Request $request,
         EntityManagerInterface $entityManager,
-        ParticipantRepository $participantRepository
+        ParticipantRepository $participantRepository,
+        EtatRepository $etatRepository
 
 
     ):Response
     {
         $sortie = new Sortie();
+        $etat = new Etat();
 
 
         $sortieForm= $this ->createForm(SortieType::class, $sortie);
@@ -53,11 +57,21 @@ class SortieController extends AbstractController
 
         if($sortieForm ->isSubmitted() && $sortieForm->isValid()) {
 
+            if ($request->request->get('publier')){
+                $etat= $etatRepository->findOneBy(['libelle'=>'ouverte']);
+                $sortie->setEtat($etat);
+            }
+            elseif ($request->request->get('creer')){
+                $etat= $etatRepository->findOneBy(['libelle'=>'créée']);
+                $sortie->setEtat($etat);
+            }
             $sortie->setOrganisateur($participant);
+            $sortie->setCampus($participant->getCampus());
 
             $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash('success', 'Sortie créée !');
+            $this->addFlash('success', 'Sortie ajoutée !');
+
             return $this->redirectToRoute('app_accueil');
         }
 
@@ -113,7 +127,7 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/sortie/{id}/afficher", name="sortie_afficher", requirements={"id" = "\d+})
+     * @Route("/sortie/{id}/afficher", name="sortie_afficher", requirements={"id" = "\d+"})
      *
      */
 

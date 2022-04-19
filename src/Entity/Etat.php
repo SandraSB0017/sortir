@@ -80,4 +80,5 @@ class Etat
 
         return $this;
     }
+
 }
