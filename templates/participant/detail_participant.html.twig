@@ -9,10 +9,24 @@
 
 {% block body %}
     <h1>Profil de {{ participant.pseudo }}</h1>
-    <p>{{ participant.nom }}</p>
-    <p>{{ participant.prenom }}</p>
-    <p>{{ participant.telephone }}</p>
-    <p>{{ participant.mail }}</p>
-    {#<p>{{ participant.campus }}</p>#}
+
+
+    <div class="contener-profil mt-5">
+        <div class="row">
+            <div class="col-6 ">
+                <p class="label-style col-3 ">Nom:</p>
+                <p class="label-style col-3">Prénom:</p>
+                <p class="label-style col-3">Téléphone:</p>
+                <p class="label-style col-3">Email:</p>
+            </div>
+            <div class="col-6">
+                <p class="txt-style col-3">{{ participant.nom|capitalize }}</p>
+                <p class="txt-style col-3">{{ participant.prenom|capitalize }}</p>
+                <p class="txt-style col-3">{{ participant.telephone }}</p>
+                <p class="txt-style col-3">{{ participant.mail }}</p>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
