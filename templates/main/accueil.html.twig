@@ -34,7 +34,6 @@
                 </thead>
                 <tbody>
                     {% for sortie in sorties %}
-                        {% if sortie.dateHeureDebut.format('m')+1 > "now"|date('m')  %}
                             <tr>
                                 <td class="intitule1">{{ sortie.nom }}</td>
                                 <td class="intitule">{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
@@ -56,7 +55,6 @@
                                 {% endif %}
 
                             </tr>
-                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

@@ -73,7 +73,7 @@ class MainController extends AbstractController
         $sortie = $sortieRepository->find($id);
         $time = date('d/m/y');
 
-        if($sortie->getDateLimiteInscription()->format('d/m/y') > $time){
+        if(($sortie->getDateLimiteInscription()->format('d/m/y') > $time )&&($sortie->getNbInscriptionsMax() > $sortie->getParticipants()->count())&&($sortie->getEtat()->getLibelle()=='ouverte')){
 
             $sortie->addParticipant($this->getUser());
             $entityManager->persist($sortie);

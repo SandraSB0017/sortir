@@ -105,7 +105,6 @@ class SortieController extends AbstractController
             'lieu' => $lieu,
             'lieuForm'=>$lieuForm->createView()
         ]);
-
     }
 
 
@@ -137,7 +136,6 @@ class SortieController extends AbstractController
     ): Response
     {
         $sortie = $sortieRepository->find($id);
-        $time = date('d/m/y');
          if(!$sortie){
              $this->createNotFoundException('Sortie non trouvée');
          }
