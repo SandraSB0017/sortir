@@ -34,28 +34,29 @@
                 </thead>
                 <tbody>
                     {% for sortie in sorties %}
-                        <tr>
-                            <td class="intitule1">{{ sortie.nom }}</td>
-                            <td class="intitule">{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
-                            <td class="intitule">{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
-                            <td class="intitule"><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
-                            <td class="intitule">{{ sortie.etat.libelle }}</td>
-                            <td class="intitule">
+                        {% if sortie.dateHeureDebut.format('m')+1 > "now"|date('m')  %}
+                            <tr>
+                                <td class="intitule1">{{ sortie.nom }}</td>
+                                <td class="intitule">{{ sortie.dateHeureDebut.format('d/m/y h:i') }}</td>
+                                <td class="intitule">{{ sortie.dateLimiteInscription.format('d/m/y') }}</td>
+                                <td class="intitule"><span class="js-inscrit">{{ sortie.participants.count }}</span>/{{ sortie.nbInscriptionsMax }}</td>
+                                <td class="intitule">{{ sortie.etat.libelle }}</td>
+                                <td class="intitule">
+                                    {% if sortie.participants.contains(app.user) %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td class="tdHover"><a class="pseudoDetail" href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
+
                                 {% if sortie.participants.contains(app.user) %}
-                                    X
+                                <td class="intitule"><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a> <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+
+                                {% else %}
+                                <td class="intitule"><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary ">S'inscrire</a> <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                 {% endif %}
-                            </td>
-                            <td class="tdHover"><a class="pseudoDetail" href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
 
-
-                            {% if sortie.participants.contains(app.user) %}
-                            <td class="intitule"><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a> <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
-
-                            {% else %}
-                            <td class="intitule"><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary ">S'inscrire</a> <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
-                            {% endif %}
-
-                        </tr>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
