@@ -59,9 +59,10 @@ class SortieRepository extends ServiceEntityRepository
 
         $query = $this
             ->createQueryBuilder('s')
-            ->select('c', 's', 'p')
+            ->select('c', 's', 'p','e')
             ->join('s.campus', 'c')
-            ->join('s.organisateur','p');
+            ->join('s.organisateur','p')
+            ->join('s.etat', 'e');
 
         if (!empty($search->q)) {
             $query = $query
@@ -71,7 +72,7 @@ class SortieRepository extends ServiceEntityRepository
 
         if (!empty($search->campus)) {
             $query = $query
-                ->andWhere('c.id IN (:campus)')
+                ->andWhere('s.campus = :campus')
                 ->setParameter('campus', $search->campus);
         }
 
@@ -92,28 +93,27 @@ class SortieRepository extends ServiceEntityRepository
                 ->andWhere('s.organisateur = :currentParticipant')
                 ->setParameter('currentParticipant', $currentParticipant);
         }
-
+        if (!empty($search->inscrit)) {
+            $query
+                ->andWhere(':user member of s.participants')
+                ->setParameter('user', $currentParticipant);
+        }
+        if (!empty($search->nonInscrit)){
+            $query
+                ->andWhere(':participant not member of s.participants')
+                ->setParameter('participant', $currentParticipant);
+        }
         if (!empty($search->sortiePassees)) {
             $query = $query
-                ->andWhere('s.etat = 5');
+                ->andWhere('e.libelle = \'passée\'');
         }
 
         return $query->getQuery()->getResult();
 
     }
 
-    public function masquerSortie()
-    {
-        $entityManager = $this->getEntityManager();
-        $dql = "SELECT s
-               FROM App\Entity\Sortie as s
-               WHERE s.dateHeureDebut +30 > NOW()        
-               ";
-    $query = $entityManager->createQuery($dql);
-    $Results = $query->getResult();
 
-    return null;
-    }
+
 
 
 

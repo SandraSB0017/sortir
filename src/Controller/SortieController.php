@@ -11,6 +11,7 @@ use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
+use Doctrine\Common\Annotations\Annotation\Required;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -112,7 +113,8 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/sortie/{id}/afficher", name="sortie_afficher")
+     * @Route("/sortie/{id}/afficher", name="sortie_afficher", requirements={"id" = "\d+})
+     *
      */
 
     public function afficherSortie(int $id,
@@ -122,8 +124,9 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepository->find($id);
         $time = date('d/m/y');
-
-          $entityManager->flush();
+         if(!$sortie){
+             $this->createNotFoundException('Sortie non trouvée');
+         }
 
         return $this->render('sortie/afficher.html.twig',[
             "sortie" => $sortie

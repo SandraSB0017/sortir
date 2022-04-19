@@ -3,55 +3,35 @@
 namespace App\Data;
 
 use App\Entity\Campus;
-use App\Entity\Sortie;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class SearchData
 {
-    /**
-     * @var int
-     */
-    public $page = 1;
 
-    /**
-     * @var Campus
-     */
-    public $campus ;
+    public int $page = 1;
 
-    /**
-     * @var boolean
-     */
-    public $organisateur;
 
-    /**
-     * @var boolean
-     */
-    public $inscrit;
+    public ?Campus $campus=null ;
 
-    /**
-     * @var boolean
-     */
-    public $nonInscrit;
 
-    /**
-     * @var boolean
-     */
-    public $sortiePassees;
+    public bool $organisateur = false;
 
-    /**
-     * @var Assert\Date
-     */
-    public $dateDebut ;
 
-    /**
-     * @var Assert\Date
-     */
-    public $dateFin ;
+    public bool $inscrit = false;
 
-    /**
-     * @var string
-     */
-    public $q = '';
+
+    public bool $nonInscrit=false;
+
+
+    public bool $sortiePassees =false;
+
+
+    public ?\DateTime $dateDebut =null;
+
+
+    public ?\DateTime $dateFin =null;
+
+
+    public ?string $q = '';
 
 
 }
