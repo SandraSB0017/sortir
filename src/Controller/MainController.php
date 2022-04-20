@@ -9,6 +9,7 @@ use App\Form\SearchForm;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use App\Service\MajEtat;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +23,9 @@ class MainController extends AbstractController
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(SortieRepository $sortieRepository, Request $request): Response
+    public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat): Response
     {
+        $majEtat->etatMaj();
         $currentParticipant = $this->getUser();
         $data = new SearchData();
         //$data->page = $request->get('page', 1);
