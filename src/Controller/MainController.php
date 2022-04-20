@@ -26,7 +26,7 @@ class MainController extends AbstractController
     {
         $currentParticipant = $this->getUser();
         $data = new SearchData();
-        $data->page = $request->get('page', 1);
+        //$data->page = $request->get('page', 1);
 
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
@@ -36,8 +36,8 @@ class MainController extends AbstractController
             'sorties' => $sorties,
             'form' => $form->createView()
         ]);
-       // return $this->render('main/accueil.html.twig');
     }
+
     /**
      * @Route("/participant/liste_participant", name="liste_participants")
      */
@@ -49,6 +49,7 @@ class MainController extends AbstractController
             "participants" => $participants
         ]);
     }
+
     /**
      * @Route("/detail_participant/{id}", name="detail_participant", requirements={"id"="\d+"})
      */
@@ -59,7 +60,6 @@ class MainController extends AbstractController
             "participant" => $participant
         ]);
     }
-
 
     /**
      * @Route("/sortie/{id}/participant", name="sortie_participant", requirements={"id"="\d+"})
@@ -74,15 +74,18 @@ class MainController extends AbstractController
         $sortie = $sortieRepository->find($id);
         $time = date('y/m/d');
 
-        if(($sortie->getDateLimiteInscription()->format('y/m/d') > $time)&&($sortie->getNbInscriptionsMax() > $sortie->getParticipants()->count())&&($sortie->getEtat()->getLibelle()=='ouverte')){
-
-            $sortie->addParticipant($this->getUser());
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-            $this->addFlash('success', 'Inscription réussie !');
-        }
-        else{
-            $this->addFlash('echec', 'Vous ne pouvez plus vous inscrire à cette sortie!');
+        if(!$sortie){
+            $this->addFlash('echec', 'Sortie non trouvée!');
+        }else{
+            if(($sortie->getDateLimiteInscription()->format('y/m/d') > $time)&&($sortie->getNbInscriptionsMax() > $sortie->getParticipants()->count())&&($sortie->getEtat()->getLibelle()=='ouverte')){
+                $sortie->addParticipant($this->getUser());
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->addFlash('success', 'Inscription réussie !');
+            }
+            else{
+                $this->addFlash('echec', 'Vous ne pouvez plus vous inscrire à cette sortie!');
+            }
         }
 
         return $this->redirectToRoute('app_accueil');
@@ -93,20 +96,26 @@ class MainController extends AbstractController
      */
     public function removeDuParticipant(
         int $id,
-
         EntityManagerInterface $entityManager,
         ParticipantRepository $participantRepository,
         SortieRepository $sortieRepository
-
-
     ): Response
     {
         $sortie = $sortieRepository->find($id);
-        $sortie->removeParticipant($this->getUser());
+        $time = date('y/m/d');
 
-        $entityManager->persist($sortie);
-
-        $entityManager->flush();
+        if(!$sortie){
+            $this->addFlash('echec', 'Sortie non trouvée!');
+        }else {
+            if (($sortie->getDateLimiteInscription()->format('y/m/d') > $time) && ($sortie->getEtat()->getLibelle() == 'ouverte')) {
+                $sortie->removeParticipant($this->getUser());
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->addFlash('success', 'Inscription annulée !');
+            } else {
+                $this->addFlash('echec', 'Vous ne pouvez plus vous désinscrire à cette sortie!');
+            }
+        }
 
         return $this->redirectToRoute('app_accueil');
     }
