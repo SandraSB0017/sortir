@@ -7,8 +7,10 @@ use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,9 +25,11 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateHeureDebut',DateType::class,[
+            ->add('dateHeureDebut',DateTimeType::class,[
                 'widget'=>'single_text'
             ])
+
+
             ->add('duree', TimeType::class)
             ->add('dateLimiteInscription',DateType::class,[
                 'widget'=>'single_text'
