@@ -16,8 +16,7 @@ class LieuType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,[
-                'required'=>false,
-
+                'required'=>false
             ])
             ->add('rue', TextType::class,[
                 'required'=>false
