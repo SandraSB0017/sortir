@@ -74,9 +74,8 @@ class MainController extends AbstractController
         $sortie = $sortieRepository->find($id);
         $time = date('y/m/d');
 
-        if(!$sortie){
-            $this->addFlash('echec', 'Sortie non trouvée!');
-        }else{
+        if($sortie){
+
             if(($sortie->getDateLimiteInscription()->format('y/m/d') > $time)&&($sortie->getNbInscriptionsMax() > $sortie->getParticipants()->count())&&($sortie->getEtat()->getLibelle()=='ouverte')){
                 $sortie->addParticipant($this->getUser());
                 $entityManager->persist($sortie);
@@ -104,9 +103,8 @@ class MainController extends AbstractController
         $sortie = $sortieRepository->find($id);
         $time = date('y/m/d');
 
-        if(!$sortie){
-            $this->addFlash('echec', 'Sortie non trouvée!');
-        }else {
+        if($sortie){
+
             if (($sortie->getDateLimiteInscription()->format('y/m/d') > $time) && ($sortie->getEtat()->getLibelle() == 'ouverte')) {
                 $sortie->removeParticipant($this->getUser());
                 $entityManager->persist($sortie);

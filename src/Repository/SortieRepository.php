@@ -63,7 +63,9 @@ class SortieRepository extends ServiceEntityRepository
             ->join('s.campus', 'c')
             ->join('s.organisateur','p')
             ->join('s.etat', 'e')
-            ->andWhere('e.libelle != \'créée\'');
+            ->andWhere('e.libelle != \'historisée\'');
+//            ->andWhere('e.libelle = \'créée\'' AND 's.organisateur = :currentUser')
+//            ->setParameter('currentUser', $currentParticipant);
 
         if (!empty($search->q)) {
             $query = $query
