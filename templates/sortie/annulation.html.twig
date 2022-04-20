@@ -5,4 +5,11 @@
 {% block body %}
     <h1>Annuler une sortie</h1>
 
+   <div class="formAnnulation">
+    {{ form_row(sortieForm.infosSortie) }}
+ <a href="{{ path('app_accueil') }}" type="reset" class="btn btnValidation">Annuler</a>
+    <boutton type="submit" class="btn btnValidation">Enregistrer l'annulation</boutton>
+   </div>
+
+
 {% endblock %}

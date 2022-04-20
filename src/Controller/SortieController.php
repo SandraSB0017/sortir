@@ -109,7 +109,7 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("sortie/{id}/publier", name="sortie_publier")
+     * @Route("sortie/{id}/publier", name="sortie_publier", requirements={"id"="\d+"})
      */
     public function publier( int $id,
                              SortieRepository $sortieRepository,
@@ -134,15 +134,41 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/annulation", name="sortie_annulation")
+     * @Route("/sortie/{id}/annulation", name="sortie_annulation", requirements={"id"="\d+"})
      */
-    public function annulation()
+    public function annulation(int $id,
+                               SortieRepository $sortieRepository,
+                               EntityManagerInterface $entityManager,
+                               EtatRepository $etatRepository,
+                                Request $request
+    ): Response
     {
-        return $this->render('sortie/annulation.html.twig');
+
+        $sortie = $sortieRepository->find($id);
+
+        if($sortie){
+            $sortieForm = $this->createForm(SortieType::class, $sortie);
+            $etat = new Etat();
+            $etat= $etatRepository->findOneBy(['libelle'=>'annulée']);
+            $sortie->setEtat($etat);
+            $sortieForm->handleRequest($request);
+            if($sortieForm ->isSubmitted() && $sortieForm->isValid()) {
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+                $this->addFlash('success', 'La sortie a été annulée');
+                return $this->redirectToRoute('app_accueil');
+            }
+
+        }
+
+        return $this->render('sortie/annulation.html.twig', [
+            'sortie'=>$sortie,
+            'sortieForm'=>$sortieForm->createView()
+        ]);
     }
 
     /**
-     * @Route("/sortie/{id}/modifier", name="sortie_modifier")
+     * @Route("/sortie/{id}/modifier", name="sortie_modifier", requirements={"id"="\d+"})
      */
     public function modifier(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
     {

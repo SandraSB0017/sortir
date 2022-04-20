@@ -53,7 +53,7 @@
                                                 <a  href="{{ path('sortie_publier', {'id': sortie.id}) }}" class="btn btn-outline-primary">Publier</a></td>
                                             {% elseif sortie.etat.libelle == 'ouverte'%}
                                             <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a>
-                                                <a href="{{ path('sortie_annulation') }}" class="btn btn-outline-primary">Annuler</a>
+                                                <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}" class="btn btn-outline-primary">Annuler</a>
                                             </td>
                                                 {% elseif sortie.etat.libelle == 'annulée' %}
                                                     <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
