@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function PHPUnit\Framework\greaterThan;
 
 class MainController extends AbstractController
 {
@@ -71,9 +72,9 @@ class MainController extends AbstractController
     ): Response
     {
         $sortie = $sortieRepository->find($id);
-        $time = date('d/m/y');
+        $time = date('y/m/d');
 
-        if(($sortie->getDateLimiteInscription()->format('d/m/y') > $time )&&($sortie->getNbInscriptionsMax() > $sortie->getParticipants()->count())&&($sortie->getEtat()->getLibelle()=='ouverte')){
+        if(($sortie->getDateLimiteInscription()->format('y/m/d') > $time)&&($sortie->getNbInscriptionsMax() > $sortie->getParticipants()->count())&&($sortie->getEtat()->getLibelle()=='ouverte')){
 
             $sortie->addParticipant($this->getUser());
             $entityManager->persist($sortie);
