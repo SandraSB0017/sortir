@@ -5,9 +5,21 @@
 {% block body %}
     <h1>Annuler une sortie</h1>
 
+{#   <div class="formAnnulation">#}
+{#       {{ form_start(sortieForm) }}#}
+{#    {{ form_row(sortieForm.infosSortie) }}#}
+{#    <a href="{{ path('app_accueil') }}" type="reset" class="btn btnValidation">Annuler</a>#}
+{#    <button type="submit" class="btn btnValidation">Enregistrer l'annulation</button>#}
+{#       {{ form_end(sortieForm) }}#}
+{#   </div>#}
+
+
     {{ form_start(sortieForm) }}
+
         {{ form_row(sortieForm.nom) }}
-        <textearea>{{ form_row(sortieForm.infosSortie) }}</textearea>
+        {{ form_row(sortieForm.infosSortie, {
+            'label': 'Motif annulation'
+        }) }}
 
         <div class="hidden">
             {{ form_row(sortieForm.dateLimiteInscription) }}
@@ -15,6 +27,7 @@
             {{ form_row(sortieForm.duree) }}
             {{ form_row(sortieForm.nbInscriptionsMax) }}
             {{ form_row(sortieForm.lieu) }}
+
         </div>
 
         <a href="{{ path('sortir_app_accueil') }}" type="reset" class="btn btnValidation">Annuler</a>
