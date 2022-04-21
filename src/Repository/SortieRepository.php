@@ -143,7 +143,7 @@ class SortieRepository extends ServiceEntityRepository
             ->select('s','e')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'activité en cours\'')
-            ->andWhere('s.dateHeureDebut + s.duree < :time')
+            ->andWhere('s.dateHeureDebut < :time')
             ->setParameter('time',$time);
         return $query->getQuery()->getResult();
     }
@@ -156,7 +156,7 @@ class SortieRepository extends ServiceEntityRepository
             ->select('s','e')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'passée\'')
-            ->andWhere('DATE_ADD(s.dateHeureDebut, 1 ,MONTH) < :time')
+            ->andWhere("DATE_ADD(s.dateHeureDebut, 1 , 'MONTH') < :time")
             ->setParameter('time',$time);
         return $query->getQuery()->getResult();
     }
@@ -168,7 +168,7 @@ class SortieRepository extends ServiceEntityRepository
             ->select('s','e')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'annulée\'')
-            ->andWhere('DATE_ADD(s.dateHeureDebut, 1, MONTH) < :time')
+            ->andWhere("DATE_ADD(s.dateHeureDebut, 1 , 'MONTH') < :time")
             ->setParameter('time',$time);
         return $query->getQuery()->getResult();
     }
