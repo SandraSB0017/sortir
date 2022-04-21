@@ -147,7 +147,16 @@ thead{
 }
 
 
+img{
+    width: 300px
+}
 
+
+.photoProfil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /********************Detail participant******************************/
 .contener-profil{

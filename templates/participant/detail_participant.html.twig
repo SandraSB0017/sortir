@@ -10,7 +10,9 @@
 {% block body %}
     <h1>Profil de {{ participant.pseudo }}</h1>
 
-
+<div class="photoProfil">
+    <img src="{{ asset('images/' ~participant.photo)}}" alt="photo de profil">
+</div>
     <div class="contener-profil mt-5">
         <div class="row">
             <div class="col-6 ">
@@ -24,6 +26,7 @@
                 <p class="txt-style col-3">{{ participant.prenom|capitalize }}</p>
                 <p class="txt-style col-3">{{ participant.telephone }}</p>
                 <p class="txt-style col-3">{{ participant.mail }}</p>
+
             </div>
         </div>
     </div>
