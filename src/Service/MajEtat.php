@@ -13,9 +13,12 @@ class MajEtat
     public function __construct(SortieRepository $sortieRepository)
     {
         $this->sortieRepository=$sortieRepository;
+
     }
 
     public function etatMaj(){
+
+
 
 }
 }
