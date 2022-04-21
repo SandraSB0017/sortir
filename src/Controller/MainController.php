@@ -18,6 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use function PHPUnit\Framework\greaterThan;
 
+
+
+/**
+ * @Route("/sortir", name="sortir_")
+ */
 class MainController extends AbstractController
 {
     /**
@@ -89,7 +94,7 @@ class MainController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_accueil');
+        return $this->redirectToRoute('sortir_app_accueil');
     }
 
     /**
@@ -117,7 +122,7 @@ class MainController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_accueil');
+        return $this->redirectToRoute('sortir_app_accueil');
     }
 
 
