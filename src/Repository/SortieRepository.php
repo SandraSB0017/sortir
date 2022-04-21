@@ -56,7 +56,6 @@ class SortieRepository extends ServiceEntityRepository
      */
     public function findSearch(SearchData $search, UserInterface $currentParticipant): array
     {
-
         $query = $this
             ->createQueryBuilder('s')
             ->select('c', 's', 'p','e')
@@ -64,8 +63,6 @@ class SortieRepository extends ServiceEntityRepository
             ->join('s.organisateur','p')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle != \'historisée\'');
-//            ->andWhere('e.libelle = \'créée\'' AND 's.organisateur = :currentUser')
-//            ->setParameter('currentUser', $currentParticipant);
 
         if (!empty($search->q)) {
             $query = $query
@@ -115,10 +112,66 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
+    public function findOuverte(){
+        $time =date('y/m/d');
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s','e')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'ouverte\'')
+            ->andWhere('s.dateLimiteInscription < :time')
+            ->setParameter('time',$time);
+        return $query->getQuery()->getResult();
+    }
 
+    public function findCloturee(){
+        $time =date('y/m/d h:i');
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s','e')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'cloturée\'')
+            ->andWhere('s.dateHeureDebut + s.duree > :time')
+            ->setParameter('time',$time);
+        return $query->getQuery()->getResult();
+    }
 
+    public function findEnCours(){
+        $time =date('y/m/d h:i');
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s','e')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'activité en cours\'')
+            ->andWhere('s.dateHeureDebut + s.duree < :time')
+            ->setParameter('time',$time);
+        return $query->getQuery()->getResult();
+    }
 
+    public function findPassee(){
+        $time = date('y/m/d h:i');
+        $mois =
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s','e')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'passée\'')
+            ->andWhere('DATE_ADD(s.dateHeureDebut, 1 ,MONTH) < :time')
+            ->setParameter('time',$time);
+        return $query->getQuery()->getResult();
+    }
 
+    public function findAnnulee(){
+        $time =date('y/m/d h:i');
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s','e')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'annulée\'')
+            ->andWhere('DATE_ADD(s.dateHeureDebut, 1, MONTH) < :time')
+            ->setParameter('time',$time);
+        return $query->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects

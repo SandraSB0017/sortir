@@ -6,6 +6,7 @@ use App\Data\SearchData;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SearchForm;
+use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -28,9 +29,9 @@ class MainController extends AbstractController
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat, EntityManagerInterface $entityManager): Response
+    public function accueil(SortieRepository $sortieRepository, EtatRepository $etatRepository, Request $request, MajEtat $majEtat, EntityManagerInterface $entityManager): Response
     {
-        //$majEtat->etatMaj($entityManager);
+        $majEtat->etatMaj($sortieRepository,$etatRepository, $entityManager);
         $currentParticipant = $this->getUser();
         $data = new SearchData();
         //$data->page = $request->get('page', 1);

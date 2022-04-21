@@ -3,11 +3,14 @@
 namespace App\Service;
 
 
+use App\Entity\Etat;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Entity\Sortie;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class MajEtat
 {
@@ -20,31 +23,57 @@ class MajEtat
         $this->entityManager=$entityManager;
     }
 
-    public function etatMaj(EntityManagerInterface $entityManager)
+    public function etatMaj(SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $entityManager)
     {
-       $query = $entityManager->createQuery('SELECT s FROM App\Entity\Sortie s 
-                                            INNER JOIN App\Entity\Etat e
-                                            WHERE s.etat = e.id AND (e.libelle = :etat1 OR e.libelle = :etat2 
-                                            OR e.libelle = :etat3 OR e.libelle = :etat4 OR e.libelle = :etat5)
-                                            ');
-       $query->setParameters(array(
-           'etat1' => 'ouverte',
-           'etat2' => 'cloturée',
-           'etat3' => 'activité en cours',
-           'etat4' => 'passée',
-           'etat5' => 'annulée'
-       ));
-       $sorties = $query->getResult();
-       $time = date('y/m/d h:i');
-
-        if (!empty($sortie)) {
-            foreach ($sorties as $sortie)
-               {
-
-               }
+        $sortiesOuvertes = $sortieRepository->findOuverte();
+        if($sortiesOuvertes){
+            foreach ($sortiesOuvertes as $sortie)
+            {
+                $etat = $etatRepository->findOneBy(['libelle'=>'cloturée']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
         }
-
-
-       //var_dump($sorties);
+        $sortiesCloturees = $sortieRepository->findCloturee();
+        if($sortiesCloturees){
+            foreach ($sortiesCloturees as $sortie)
+            {
+                $etat = $etatRepository->findOneBy(['libelle'=>'activité en cours']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+        }
+        $sortiesEnCours = $sortieRepository->findEnCours();
+        if($sortiesEnCours){
+            foreach ($sortiesEnCours as $sortie)
+            {
+                $etat = $etatRepository->findOneBy(['libelle'=>'passée']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+        }
+        $sortiesPassees = $sortieRepository->findPassee();
+        if($sortiesPassees){
+            foreach ($sortiesPassees as $sortie)
+            {
+                $etat = $etatRepository->findOneBy(['libelle'=>'historisée']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+        }
+        $sortiesAnnulees = $sortieRepository->findAnnulee();
+        if($sortiesAnnulees){
+            foreach ($sortiesAnnulees as $sortie)
+            {
+                $etat = $etatRepository->findOneBy(['libelle'=>'historisée']);
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+        }
     }
 }
