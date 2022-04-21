@@ -20,12 +20,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+/**
+ * @Route ("/sortir", name="sortir_")
+ */
 class SortieController extends AbstractController
 {
     /**
      *
-     * @Route("/sortie", name="app_sortie")
+     * @Route("", name="app_sortie")
      */
     public function index(): Response
     {

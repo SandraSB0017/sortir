@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+/**
+ * @Route ("/participant", name="participant_")
+ */
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/participant", name="app_participant")
+     * @Route("", name="app_participant")
      */
     public function index(): Response
     {
