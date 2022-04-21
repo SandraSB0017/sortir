@@ -16,7 +16,9 @@
             <img class="imgProfil border rounded-circle mb-3 mt-3" src="{{ asset('images/' ~participant.photo)}}" alt="photo de profil">
         </div>
     {% else %}
-        <img src="{{ asset('images/default.jpg.jpg')}}" alt="photo par défaut">
+        <div class="photoProfil ">
+        <img class="imgProfil border rounded-circle mb-3 mt-3" src="{{ asset('images/default.jpg.jpg')}}" alt="photo par défaut">
+        </div>
     {% endif %}
     <div class="contener-profil mt-5">
         <div class="row">
