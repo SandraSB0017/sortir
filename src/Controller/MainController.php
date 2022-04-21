@@ -23,9 +23,9 @@ class MainController extends AbstractController
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat): Response
+    public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat, EntityManagerInterface $entityManager): Response
     {
-        $majEtat->etatMaj();
+        $majEtat->etatMaj($entityManager);
         $currentParticipant = $this->getUser();
         $data = new SearchData();
         //$data->page = $request->get('page', 1);
