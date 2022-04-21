@@ -16,16 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/participant", name="app_participant")
-     */
-    public function index(): Response
-    {
-        return $this->render('participant/index.html.twig', [
-            'controller_name' => 'ParticipantController',
-        ]);
-    }
-
-    /**
      * @Route("/monProfil/{id}", name="participant_monProfil", requirements={"id"="\d+"})
      */
     public function monProfil(int $id,

@@ -30,7 +30,7 @@ class MainController extends AbstractController
      */
     public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat, EntityManagerInterface $entityManager): Response
     {
-       // $majEtat->etatMaj($entityManager);
+        //$majEtat->etatMaj($entityManager);
         $currentParticipant = $this->getUser();
         $data = new SearchData();
         //$data->page = $request->get('page', 1);

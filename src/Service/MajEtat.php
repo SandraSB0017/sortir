@@ -22,13 +22,29 @@ class MajEtat
 
     public function etatMaj(EntityManagerInterface $entityManager)
     {
-       $query = $entityManager->createQuery('SELECT s FROM App\Entity\Sortie s WHERE s.etat.libelle = :etat1 OR s.etat.libelle = :etat2');
+       $query = $entityManager->createQuery('SELECT s FROM App\Entity\Sortie s 
+                                            INNER JOIN App\Entity\Etat e
+                                            WHERE s.etat = e.id AND (e.libelle = :etat1 OR e.libelle = :etat2 
+                                            OR e.libelle = :etat3 OR e.libelle = :etat4 OR e.libelle = :etat5)
+                                            ');
        $query->setParameters(array(
-           'etat1' => 'passée',
-           'etat2' =>'cloturée',
+           'etat1' => 'ouverte',
+           'etat2' => 'cloturée',
+           'etat3' => 'activité en cours',
+           'etat4' => 'passée',
+           'etat5' => 'annulée'
        ));
-
        $sorties = $query->getResult();
-       var_dump($sorties);
+       $time = date('y/m/d h:i');
+
+        if (!empty($sortie)) {
+            foreach ($sorties as $sortie)
+               {
+
+               }
+        }
+
+
+       //var_dump($sorties);
     }
 }
