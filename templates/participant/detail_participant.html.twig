@@ -10,9 +10,14 @@
 {% block body %}
     <h1>Profil de {{ participant.pseudo }}</h1>
 
-<div class="photoProfil">
-    <img class="imgProfil border rounded-circle" src="{{ asset('images/' ~participant.photo)}}" alt="photo de profil">
-</div>
+    {% if participant.photo %}
+        </div>
+        <div class="photoProfil ">
+            <img class="imgProfil border rounded-circle mb-3 mt-3" src="{{ asset('images/' ~participant.photo)}}" alt="photo de profil">
+        </div>
+    {% else %}
+        <img src="{{ asset('images/default.jpg.jpg')}}" alt="photo par défaut">
+    {% endif %}
     <div class="contener-profil mt-5">
         <div class="row">
             <div class="col-6 ">
