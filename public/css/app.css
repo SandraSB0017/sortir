@@ -149,7 +149,7 @@ thead{
 
 .imgProfil{
     width: 300px;
-    clip-path:ellipse(33% 50%);
+    /*clip-path:ellipse(33% 50%);*/
 
 }
 
