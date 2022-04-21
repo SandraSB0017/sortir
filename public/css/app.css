@@ -147,8 +147,10 @@ thead{
 }
 
 
-img{
-    width: 300px
+.imgProfil{
+    width: 300px;
+    clip-path:ellipse(33% 50%);
+
 }
 
 
@@ -156,6 +158,8 @@ img{
     display: flex;
     align-items: center;
     justify-content: center;
+
+
 }
 
 /********************Detail participant******************************/
