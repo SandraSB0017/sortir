@@ -14,12 +14,12 @@
     {{ form_row(sortieForm.infosSortie) }}
     <div class="btnNewLieu">
     {{ form_row(sortieForm.lieu) }}
-    <a type="button" href ="{{ path('sortir_sortie_add_Lieu')}}" class="btn btn-dark">+</a>
+    <a type="button" href ="{{ path('sortie_sortie_add_Lieu')}}" class="btn btn-dark">+</a>
     </div>
 
     <button class="btn btnValidation" type="submit" name="creer" value="creer">Enregistrer</button>
     <button class="btn btnValidation" type="submit" name="publier" value="publier">Publier la sortie</button>
-    <a href="{{ path('app_accueil') }}" class="btn btnValidation" type="reset">Annuler</a>
+    <a href="{{ path('sortir_app_accueil') }}" class="btn btnValidation" type="reset">Annuler</a>
 
     {{ form_end(sortieForm) }}
 

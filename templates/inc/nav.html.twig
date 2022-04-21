@@ -1,24 +1,8 @@
-{# <nav class="navbar">
-     <ul class="nav justify-content-end">
-        {% if app.user %}
-            <li class="nav-item ml-2">
-                <a href="{{ path('app_accueil') }}" title="Accueil">Accueil</a>
-            </li>
-            <li class="nav-item ml-2">
-                <a href="{{ path('participant_monProfil', {'id':app.user.id})}}" title="Mon Profil">Mon profil {{ app.user.pseudo }}</a>
-            </li>
-            <li class="nav-item ml-2">
-                <a href="{{ path('app_logout') }}" title="Se déconnecter">Se déconnecter</a>
-            </li>
-        {% endif %}
-    </ul>
-</nav>#}
-
   {% if app.user %}
     <nav>
         <ul class="nav justify-content-center">
             <li class="nav-item mr-4">
-                <a href="{{ path('app_accueil') }}" title="Accueil">Accueil</a>
+                <a href="{{ path('sortir_app_accueil') }}" title="Accueil">Accueil</a>
             </li>
             <li class="nav-item mr-4">
                 <a href="{{ path('participant_participant_monProfil', {'id':app.user.id})}}" title="Mon Profil">Mon profil</a>

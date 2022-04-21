@@ -17,17 +17,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use function PHPUnit\Framework\greaterThan;
+
+
+
 /**
- * @Route ("/accueil", name="accueil_")
+ * @Route("/sortir", name="sortir_")
  */
 class MainController extends AbstractController
 {
     /**
-     * @Route("", name="app_accueil")
+     * @Route("/accueil", name="app_accueil")
      */
-    public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat): Response
+    public function accueil(SortieRepository $sortieRepository, Request $request, MajEtat $majEtat, EntityManagerInterface $entityManager): Response
     {
-       // $majEtat->etatMaj();
+       // $majEtat->etatMaj($entityManager);
         $currentParticipant = $this->getUser();
         $data = new SearchData();
         //$data->page = $request->get('page', 1);
@@ -91,7 +94,7 @@ class MainController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_accueil');
+        return $this->redirectToRoute('sortir_app_accueil');
     }
 
     /**
@@ -119,7 +122,7 @@ class MainController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_accueil');
+        return $this->redirectToRoute('sortir_app_accueil');
     }
 
 

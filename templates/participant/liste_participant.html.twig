@@ -2,7 +2,7 @@
 
 {% block body %}
     {% for participant in participants %}
-        <li><a href="{{ path('detail_participant', {'id': participant.id}) }}" title="profil_participant">{{ participant.pseudo }}</a></li>
+        <li><a href="{{ path('sortir_detail_participant', {'id': participant.id}) }}" title="profil_participant">{{ participant.pseudo }}</a></li>
     {% endfor %}
 {% endblock %}
 
