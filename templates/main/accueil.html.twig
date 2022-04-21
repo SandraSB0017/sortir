@@ -45,40 +45,40 @@
                                         X
                                     {% endif %}
                                 </td>
-                                <td class="tdHover"><a class="pseudoDetail" href="{{ path('detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
+                                <td class="tdHover"><a class="pseudoDetail" href="{{ path('sortir_detail_participant', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom }}</a></td>
 
                                 {% if sortie.organisateur.id == app.user.id %}
                                         {% if sortie.etat.libelle == 'créée' %}
-                                            <td class="intitule"><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}" class="btn btn-outline-primary">Modifier</a>
-                                                <a  href="{{ path('sortie_publier', {'id': sortie.id}) }}" class="btn btn-outline-primary">Publier</a></td>
+                                            <td class="intitule"><a href="{{ path('sortie_sortie_modifier', {'id': sortie.id}) }}" class="btn btn-outline-primary">Modifier</a>
+                                                <a  href="{{ path('sortie_sortie_publier', {'id': sortie.id}) }}" class="btn btn-outline-primary">Publier</a></td>
                                             {% elseif sortie.etat.libelle == 'ouverte'%}
-                                            <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a>
-                                                <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}" class="btn btn-outline-primary">Annuler</a>
+                                            <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a>
+                                                <a href="{{ path('sortie_sortie_annulation', {'id': sortie.id}) }}" class="btn btn-outline-primary">Annuler</a>
                                             </td>
                                                 {% elseif sortie.etat.libelle == 'annulée' %}
-                                                    <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                    <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                                     {% elseif sortie.etat.libelle == 'cloturée' %}
-                                                        <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                        <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                         {% endif %}
                                 {% else %}
                                         {% if sortie.etat.libelle == 'ouverte' %}
                                             {% if sortie.participants.contains(app.user) %}
-                                                <td class="intitule"><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a>
-                                                    <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                <td class="intitule"><a href="{{ path('sortir_sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a>
+                                                    <a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                                 {% else %}
-                                                    <td class="intitule"><a href="{{ path('sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary ">S'inscrire</a>
-                                                        <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                    <td class="intitule"><a href="{{ path('sortir_sortie_participant', {'id': sortie.id}) }}" class="btn btn-outline-primary ">S'inscrire</a>
+                                                        <a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                             {% endif %}
                                         {% endif %}
                                     {% if sortie.etat.libelle == 'activité en cours' %}
-                                            <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                            <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                         {% endif %}
                                         {% if sortie.etat.libelle == 'cloturée' %}
                                             {% if sortie.participants.contains(app.user) %}
-                                                <td class="intitule"><a href="{{ path('sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a>
-                                                    <a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                <td class="intitule"><a href="{{ path('sortir_sortie_participant_desinscription', {'id': sortie.id}) }}" class="btn btn-outline-primary ">Se désister</a>
+                                                    <a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                             {% else %}
-                                                <td class="intitule"><a href="{{ path('sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                             {% endif %}
                                 {% endif %}
                                 {% endif %}
@@ -87,6 +87,6 @@
                 </tbody>
             </table>
         </div>
-        <a href="{{ path('sortie_creation',{'id': app.user.id})}}" class="btn btnValidation">Créer une sortie</a>
+        <a href="{{ path('sortie_sortie_creation',{'id': app.user.id})}}" class="btn btnValidation">Créer une sortie</a>
     </div>
 {% endblock %}

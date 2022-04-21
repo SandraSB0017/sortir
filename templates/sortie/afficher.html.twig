@@ -85,7 +85,7 @@
 
                 {% for participant in sortie.participants %}
                 <tr>
-                    <td class="tdHover"><a class="pseudoDetail" href="{{ path('detail_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a> </td>
+                    <td class="tdHover"><a class="pseudoDetail" href="{{ path('sortir_detail_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a> </td>
                     <td class="intitule">{{ participant.nom }} {{ participant.prenom }}</td>
                 </tr>
                 {% endfor %}

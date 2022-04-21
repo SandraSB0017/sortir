@@ -21,19 +21,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *
+ * @Route("/sortie", name="sortie_")
+ */
 class SortieController extends AbstractController
 {
-    /**
-     *
-     * @Route("/sortie", name="app_sortie")
-     */
-    public function index(): Response
-    {
-        return $this->render('sortie/index.html.twig', [
-            'controller_name' => 'SortieController',
-        ]);
-    }
-
     /**
      * @Route("/creation/{id}", name="sortie_creation", requirements={"id"="\d+"})
      */
@@ -72,7 +65,7 @@ class SortieController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Sortie ajoutée !');
 
-            return $this->redirectToRoute('app_accueil');
+            return $this->redirectToRoute('sortir_app_accueil');
         }
 
         return $this->render('sortie/creation.html.twig',[
@@ -98,7 +91,7 @@ class SortieController extends AbstractController
             $entityManager->persist(($lieu));
             $entityManager->flush();
             $this->addFlash('success', 'Nouveau lieu ajouté !');
-            return $this->redirectToRoute('sortie_add_Lieu');
+            return $this->redirectToRoute('sortie_sortie_add_Lieu');
 
         }
         return $this->render('sortie/LieuCreation.html.twig',[
@@ -129,7 +122,7 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Sortie publiée !');
         }
 
-        return $this->redirectToRoute('app_accueil');
+        return $this->redirectToRoute('sortir_app_accueil');
     }
 
 
@@ -156,7 +149,7 @@ class SortieController extends AbstractController
                 $entityManager->persist($sortie);
                 $entityManager->flush();
                 $this->addFlash('success', 'La sortie a été annulée');
-                return $this->redirectToRoute('app_accueil');
+                return $this->redirectToRoute('sortir_app_accueil');
             }
 
         }
@@ -181,7 +174,7 @@ class SortieController extends AbstractController
                         $entityManager->persist($sortie);
                         $entityManager->flush();
                         $this->addFlash('success', 'La sortie a été modifiée');
-                        return $this->redirectToRoute('app_accueil');
+                        return $this->redirectToRoute('sortir_app_accueil');
                     }
                 }
             return $this->render('sortie/modifier.html.twig',[

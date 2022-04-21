@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/participant", name="participant_")
+ */
 class ParticipantController extends AbstractController
 {
     /**
@@ -41,7 +44,7 @@ class ParticipantController extends AbstractController
                $entityManager->persist($participant);
                $entityManager->flush();
                $this->addFlash('succes', 'Profil modifié');
-               return $this->redirectToRoute('app_accueil');
+               return $this->redirectToRoute('sortir_app_accueil');
 
             }
         return $this->render('participant/monProfil.html.twig',[
