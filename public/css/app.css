@@ -79,15 +79,27 @@ body{
     padding-right: 5%;
 }
 .tableaux{
-    display: inline-flex;
-    width: 35%;
-    margin-right: 30px;
-    margin-left: 100px;
-    margin-top: 5%;
-    margin-bottom: 3%;
+
+    width: 45%;
+    min-width: 350px;
+
 }
 #tabMarge{
-    margin-left: 100px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: space-between;
+
+}
+@media (max-width: 800px) {
+    #tabMarge{
+        display: flex;
+        flex-direction: column;
+        margin-left: 10%;
+        margin-right: 10%;
+        align-items: center;
+    }
 }
 h1{
     text-align: center;
