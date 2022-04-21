@@ -80,14 +80,14 @@ body{
 }
 .tableaux{
     display: inline-flex;
-    width: 500px;
+    width: 35%;
     margin-right: 30px;
     margin-left: 100px;
     margin-top: 5%;
     margin-bottom: 3%;
 }
 #tabMarge{
-    margin-left: 300px;
+    margin-left: 100px;
 }
 h1{
     text-align: center;
