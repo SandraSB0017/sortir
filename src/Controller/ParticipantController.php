@@ -31,6 +31,12 @@ class ParticipantController extends AbstractController
 
             if( $form->get('saveAndAdd')->isClicked() && $form->isValid())
             {
+               $file= $form->get('photo')->getData();
+                    if($file){
+                        $newFilename = $participant->getPrenom()."-".$participant->getId().".".$file->guessExtension();
+                        $file->move($this->getParameter('images_directory'), $newFilename);
+                        $participant->setPhoto($newFilename);
+                    }
                $entityManager->persist($participant);
                $entityManager->flush();
                $this->addFlash('succes', 'Profil modifié');
