@@ -4,18 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Lieu;
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\LieuType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
-use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
-use App\Repository\VilleRepository;
-use Doctrine\Common\Annotations\Annotation\Required;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,28 +31,24 @@ class SortieController extends AbstractController
         EntityManagerInterface $entityManager,
         ParticipantRepository $participantRepository,
         EtatRepository $etatRepository
-
-
     ):Response
     {
         $sortie = new Sortie();
-        $etat = new Etat();
-
 
         $sortieForm= $this ->createForm(SortieType::class, $sortie);
         $participant = $participantRepository->find($id);
         $sortieForm->handleRequest($request);
 
         if($sortieForm ->isSubmitted() && $sortieForm->isValid()) {
-
             if ($request->request->get('publier')){
                 $etat= $etatRepository->findOneBy(['libelle'=>'ouverte']);
-                $sortie->setEtat($etat);
+
             }
-            elseif ($request->request->get('creer')){
+            else {
                 $etat= $etatRepository->findOneBy(['libelle'=>'créée']);
-                $sortie->setEtat($etat);
+
             }
+            $sortie->setEtat($etat);
             $sortie->setOrganisateur($participant);
             $sortie->setCampus($participant->getCampus());
 
@@ -112,9 +103,9 @@ class SortieController extends AbstractController
     {
 
         $sortie = $sortieRepository->find($id);
-        $etat = new Etat();
 
         if($sortie){
+            //vérifier le context : etat et si l'utilisateur est organisateur
             $etat= $etatRepository->findOneBy(['libelle'=>'ouverte']);
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
@@ -203,5 +194,8 @@ class SortieController extends AbstractController
             "sortie" => $sortie
         ]);
     }
+        //création de la méthode pour l'API
+
+            //return $this->json($lieu, Response::HTTP_OK, [], ['groups' => "liste_lieux"]);
 
     }

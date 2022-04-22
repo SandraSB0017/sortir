@@ -3,13 +3,11 @@
 namespace App\Repository;
 
 use App\Data\SearchData;
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-use mysql_xdevapi\Result;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

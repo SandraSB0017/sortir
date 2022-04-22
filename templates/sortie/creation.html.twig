@@ -6,49 +6,58 @@
     <h1>Créer une sortie</h1>
 
     {{ form_start(sortieForm) }}
-    {{ form_row(sortieForm.nom) }}
-    {{ form_row(sortieForm.dateHeureDebut) }}
-    {{ form_row(sortieForm.duree) }}
-    {{ form_row(sortieForm.dateLimiteInscription) }}
-    {{ form_row(sortieForm.nbInscriptionsMax) }}
-    {{ form_row(sortieForm.infosSortie) }}
-    <div class="btnNewLieu">
-    {{ form_row(sortieForm.lieu) }}
-    <a type="button" href ="{{ path('sortie_sortie_add_Lieu')}}" class="btn btn-dark">+</a>
-    </div>
-<div class="btn_creation">
-    <button class="btn btnValidation" type="submit" name="creer" value="creer">Enregistrer</button>
-    <button class="btn btnValidation mt-4 mb-4" type="submit" name="publier" value="publier">Publier la sortie</button>
-    <a href="{{ path('sortir_app_accueil') }}" class="btn btn-danger" type="reset">Annuler</a>
-</div>
-
+        {{ form_row(sortieForm.nom) }}
+        {{ form_row(sortieForm.dateHeureDebut) }}
+        {{ form_row(sortieForm.duree) }}
+        {{ form_row(sortieForm.dateLimiteInscription) }}
+        {{ form_row(sortieForm.nbInscriptionsMax) }}
+        {{ form_row(sortieForm.infosSortie) }}
+        <div class="btnNewLieu">
+            {{ form_row(sortieForm.lieu) }}
+            <a type="button" href ="{{ path('sortie_sortie_add_Lieu')}}" class="btn btn-dark">+</a>
+        </div>
+        <div class="btn_creation">
+            <button class="btn btnValidation" type="submit" name="creer" value="creer">Enregistrer</button>
+            <button class="btn btnValidation mt-4 mb-4" type="submit" name="publier" value="publier">Publier la sortie</button>
+            <a href="{{ path('sortir_app_accueil') }}" class="btn btn-danger" type="reset">Annuler</a>
+        </div>
     {{ form_end(sortieForm) }}
-
-
-
 {% endblock %}
+
 {% block javascripts %}
     <script>
         window.onload = () =>{
-            let lieu = document.querySelector("#sortie_lieu");
-            lieu.addEventListener("change", function (){
+            let ville = document.querySelector("#sortie_ville");
+            ville.addEventListener("change", function (){
                 let form = this.closest("form");
                 let data = this.name + "=" + this.value;
 
-                fetch(form.action, {
-                    method: form.getAttribute("methode"),
-                    body: data,
-                    headers:{
-                        "Content-Type": "application/x-www-form-urlencoded; charset:utf-8"
-                    }
+                fetch('appel a une API crée dans un controller', {
+                    method: 'GET',
+
                 })
-                .then(response => response.text())
-                .then(html =>{
-                    let content = document.createElement("html");
-                    content.innerHTML = html;
-                    let nouveauSelect = content.querySelector("#sortie_lieu");
-                    document.querySelector("#sortie_lieu").replaceWith(nouveauSelect);
-                })
+                        .then(response => response.json())
+                        .then(response => {
+                            console.log(response);
+                        // traiter les données
+                            let options = "";
+                            response.map(lieu => {
+                                options += `<option value="${lieu.id}">${lieu.nom}</option>`;
+                            })
+                            console.log(options);
+                        // maj <select>
+                            document.querySelector("#lieux").innerHTML = options;
+                        })
+                        .catch(e=> {
+                            alert("ERREUR");
+                        })
+                    ;
+
+
+
+
+                }
+                    })
             })
         }
     </script>
