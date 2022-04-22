@@ -163,8 +163,10 @@ thead{
 }
 
 .btn_creation{
-    display: flex;
-    flex-direction: column;
+    width: 600px;
+    height: 50px;
+    /*display: flex;*/
+    /*flex-direction: row;*/
 }
 
 /********************Detail participant******************************/
