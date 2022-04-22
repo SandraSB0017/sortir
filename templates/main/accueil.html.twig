@@ -59,6 +59,8 @@
                                                     <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                                     {% elseif sortie.etat.libelle == 'cloturée' %}
                                                         <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
+                                                        {% elseif sortie.etat.libelle == 'passée' %}
+                                                            <td class="intitule"></td>
                                         {% endif %}
                                 {% else %}
                                         {% if sortie.etat.libelle == 'ouverte' %}
@@ -80,6 +82,8 @@
                                             {% else %}
                                                 <td class="intitule"><a href="{{ path('sortie_sortie_afficher', {'id': sortie.id}) }}" class="btn btn-outline-primary">Afficher</a></td>
                                             {% endif %}
+
+
                                 {% endif %}
                                 {% endif %}
                             </tr>

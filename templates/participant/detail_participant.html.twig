@@ -11,7 +11,7 @@
     <h1>Profil de {{ participant.pseudo }}</h1>
 
     {% if participant.photo %}
-        </div>
+
         <div class="photoProfil ">
             <img class="imgProfil border rounded-circle mb-3 mt-3" src="{{ asset('images/' ~participant.photo)}}" alt="photo de profil">
         </div>
@@ -22,19 +22,27 @@
     {% endif %}
     <div class="contener-profil mt-5">
         <div class="row">
-            <div class="col-6 ">
-                <p class="label-style col-3 ">Nom:</p>
-                <p class="label-style col-3">Prénom:</p>
-                <p class="label-style col-3">Téléphone:</p>
-                <p class="label-style col-3">Email:</p>
-            </div>
-            <div class="col-6">
-                <p class="txt-style col-3">{{ participant.nom|capitalize }}</p>
-                <p class="txt-style col-3">{{ participant.prenom|capitalize }}</p>
-                <p class="txt-style col-3">{{ participant.telephone }}</p>
-                <p class="txt-style col-3">{{ participant.mail }}</p>
-
-            </div>
+            <table class="table table-striped">
+                <thead>
+                <th class="HiddingHeader">INFO PROFIL</th><th></th>
+                </thead>
+                <tbody>
+                <div class="col-8 ">
+                    <tr>
+                    <td class="label-style col-4 ">Nom:</td><td class="txt-style col-4">{{ participant.nom|capitalize }}</td>
+                    </tr>
+                    <tr>
+                    <td class="label-style col-4">Prénom:</td><td class="txt-style col-4">{{ participant.prenom|capitalize }}</td>
+                    </tr>
+                    <tr>
+                    <td class="label-style col-4">Téléphone:</td><td class="txt-style col-4">{{ participant.telephone }}</td>
+                    </tr>
+                    <tr>
+                    <td class="label-style col-4">Email:</td><td class="txt-style col-4">{{ participant.mail }}</td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
         </div>
     </div>
 
