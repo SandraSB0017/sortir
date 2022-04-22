@@ -113,7 +113,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findOuverte(){
-        $time =date('y/m/d');
+        $time =date('Y-m-d h:i:s');
         $query = $this
             ->createQueryBuilder('s')
             ->select('s','e')
@@ -125,32 +125,32 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findCloturee(){
-        $time =date('y/m/d h:i');
+        $time = date('Y-m-d h:i:s');
         $query = $this
             ->createQueryBuilder('s')
             ->select('s','e')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'cloturée\'')
-            ->andWhere('s.dateHeureDebut + s.duree > :time')
+            ->andWhere('s.dateHeureDebut < :time')
+            ->andWhere('DATE_ADD(s.dateHeureDebut , s.duree, \'SECOND\') > :time')
             ->setParameter('time',$time);
         return $query->getQuery()->getResult();
     }
 
     public function findEnCours(){
-        $time =date('y/m/d h:i');
+        $time =date('Y-m-d h:i:s');
         $query = $this
             ->createQueryBuilder('s')
             ->select('s','e')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'activité en cours\'')
-            ->andWhere('s.dateHeureDebut < :time')
+            ->andWhere('DATE_ADD(s.dateHeureDebut , s.duree, \'SECOND\') < :time')
             ->setParameter('time',$time);
         return $query->getQuery()->getResult();
     }
 
     public function findPassee(){
-        $time = date('y/m/d h:i');
-        $mois =
+        $time =date('Y-m-d h:i:s');
         $query = $this
             ->createQueryBuilder('s')
             ->select('s','e')
@@ -162,7 +162,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     public function findAnnulee(){
-        $time =date('y/m/d h:i');
+        $time =date('Y-m-d h:i:s');
         $query = $this
             ->createQueryBuilder('s')
             ->select('s','e')

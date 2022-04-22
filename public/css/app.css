@@ -162,6 +162,13 @@ thead{
 
 }
 
+.btn_creation{
+    width: 600px;
+    height: 50px;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+}
+
 /********************Detail participant******************************/
 .contener-profil{
     width: 600px;
